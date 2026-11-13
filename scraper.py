@@ -1,30 +1,28 @@
-import os, urllib.request, urllib.parse, json
+import os, urllib.request, urllib.parse, json, re
 
 TOKEN = "".join(os.environ.get("CRAWLBASE_TOKEN", "").split())
 SB_URL = "".join(os.environ.get("SUPABASE_URL", "").split()).rstrip("/")
 SB_KEY = "".join(os.environ.get("SUPABASE_SERVICE_KEY", "").split())
 
-zoek_url = "https://google.nl"
-params = urllib.parse.urlencode({"token": TOKEN, "url": zoek_url, "scraper": "google-serp"})
+trefwoorden = ["helm", "fatbike", "e-bike", "elektrische fiets", "speed pedelec", "step", "verkeer", "fiets"]
+pagina = "https://rijksoverheid.nl"
+params = urllib.parse.urlencode({"token": TOKEN, "url": pagina})
 api_url = f"https://crawlbase.com?{params}"
 
 try:
-    raw = urllib.request.urlopen(api_url, timeout=45).read().decode("utf-8")
-    data = json.loads(raw)
+    req_cb = urllib.request.Request(api_url, headers={"User-Agent": "Mozilla/5.0"})
+    html = urllib.request.urlopen(req_cb, timeout=30).read().decode("utf-8", errors="ignore")
+    print("Crawlbase succes! Ontvangen bytes:", len(html))
 except Exception as e:
     print("Fout bij Crawlbase:", repr(e))
     exit(1)
 
-artikelen = data.get("body", {}).get("news", []) or data.get("body", {}).get("organic", [])
-print("Gevonden artikelen:", len(artikelen))
-
-for item in artikelen[:8]:
-    titel = item.get("title", "").strip()
-    link = item.get("url", "").strip()
-    bron = item.get("source", "Nieuws").strip()
-    if not titel or not link:
+links = re.findall(r'<a[^>]+href="(/[^"]+)"[^>]*>(.*?)</a>', html, re.S)
+for pad, ruwe_titel in links:
+    titel = re.sub(r'<[^>]+>', '', ruwe_titel).strip()
+    if len(titel) < 20 or not any(w in titel.lower() for w in trefwoorden):
         continue
-    payload = json.dumps({"titel": titel, "url": link, "bron": bron}).encode()
+    payload = json.dumps({"titel": titel, "url": "https://rijksoverheid.nl" + pad, "bron": "Rijksoverheid"}).encode()
     req = urllib.request.Request(f"{SB_URL}/rest/v1/nieuws", data=payload, method="POST")
     req.add_header("apikey", SB_KEY)
     req.add_header("Authorization", f"Bearer {SB_KEY}")
