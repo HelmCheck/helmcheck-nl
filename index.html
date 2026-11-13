@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helmcheck.nl - Moet ik een helm op?</title>
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f4f7f6; color: #333; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        select, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
+        button { background: #0066cc; color: white; border: none; font-weight: bold; cursor: pointer; }
+        button:hover { background: #0052a3; }
+        .resultaat { display: none; margin-top: 20px; padding: 15px; border-radius: 8px; background: #eef6ff; border-left: 5px solid #0066cc; }
+        .reclame-blok { border: 1px dashed #aaa; padding: 15px; border-radius: 8px; background: #fafafa; margin-top: 20px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>🚲 Helmcheck.nl</h1>
+        <p>Kies jouw elektrische voertuig en check direct of een helm verplicht is (of binnenkort wordt).</p>
+        
+        <label for="voertuigSelect"><strong>Kies je voertuig:</strong></label>
+        <select id="voertuigSelect">
+            <option value="">Gegevens laden uit database...</option>
+        </select>
+
+        <button onclick="toonResultaat()">Check helmplicht</button>
+
+        <div id="resultaatBox" class="resultaat">
+            <h3 id="resTitel"></h3>
+            <p id="resNu"></p>
+            <p id="resToekomst"></p>
+            <p id="resUitleg"></p>
+
+            <div class="reclame-blok">
+                <strong>💡 Tip: Trendy & goedgekeurde helmen</strong><br>
+                Hier komt straks jouw affiliate-link naar stijlvolle stadshelmen (zoals Thousand of Abus).
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // VERVANG DEZE TWEE REGELS MET JOUW SUPABASE GEGEVENS:
+        const SUPABASE_URL = 'https://abotommlvkzppelwmulh.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_KeNt2TDS7QKLGoELo1XeIA_07PO6BOn';
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let opgeslagenVoertuigen = [];
+
+        async function laadVoertuigen() {
+            const { data, error } = await supabaseClient.from('voertuigen').select('*');
+            const select = document.getElementById('voertuigSelect');
+            
+            if (error || !data) {
+                select.innerHTML = '<option>Fout bij laden (check je sleutels)</option>';
+                return;
+            }
+
+            opgeslagenVoertuigen = data;
+            select.innerHTML = '<option value="">-- Maak een keuze --</option>';
+            data.forEach((v, index) => {
+                select.innerHTML += `<option value="${index}">${v.naam} (tot ${v.max_snelheid} km/u)</option>`;
+            });
+        }
+
+        function toonResultaat() {
+            const index = document.getElementById('voertuigSelect').value;
+            if (index === "") return;
+
+            const v = opgeslagenVoertuigen[index];
+            document.getElementById('resTitel').innerText = v.naam;
+            document.getElementById('resNu').innerHTML = "<strong>Helmplicht nu:</strong> " + (v.helmplicht_nu ? "✅ Ja, verplicht" : "❌ Nee, niet verplicht");
+            document.getElementById('resToekomst').innerHTML = "<strong>Helmplicht toekomst:</strong> " + (v.helmplicht_toekomst ? "⚠️ Ja, plannen in de maak" : "Nee, geen plannen bekend");
+            document.getElementById('resUitleg').innerText = v.uitleg;
+            document.getElementById('resultaatBox').style.display = 'block';
+        }
+
+        laadVoertuigen();
+    </script>
+</body>
+</html>
