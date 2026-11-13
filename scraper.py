@@ -7,7 +7,7 @@ SB_KEY = "".join(os.environ.get("SUPABASE_SERVICE_KEY", "").split())
 trefwoorden = ["helmplicht", "fatbike", "e-bike", "elektrische fiets", "speed pedelec", "elektrische step", "helm"]
 pagina = "https://rijksoverheid.nl"
 params = urllib.parse.urlencode({"token": TOKEN, "url": pagina})
-api_url = f"https://crawlbase.com?{params}"
+api_url = f"https://api.crawlbase.com/?{params}"
 
 req_cb = urllib.request.Request(api_url, headers={"User-Agent": "Mozilla/5.0"})
 html = urllib.request.urlopen(req_cb, timeout=30).read().decode("utf-8", errors="ignore")
