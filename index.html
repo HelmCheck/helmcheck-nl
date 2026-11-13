@@ -97,30 +97,58 @@
         &copy; 2026 Helmcheck.nl – Alle rechten voorbehouden.
     </footer>
 
-    <script>
-        const lijst = [
-            { naam: "Standaard E-bike", nu: false, toekomst: false, uitleg: "Voor een gewone elektrische fiets met trapondersteuning tot 25 km/u geldt geen helmplicht. Een fietshelm wordt door verkeersorganisaties wel aangeraden voor je eigen veiligheid." },
-            { naam: "Fatbike (standaard)", nu: false, toekomst: true, uitleg: "Op dit moment valt een standaard fatbike (max. 25 km/u, zonder gashendel) onder de regels van een gewone e-bike. Let op: de overheid werkt actief aan nieuwe wetgeving zoals een helmplicht en minimumleeftijd." },
-            { naam: "Speed Pedelec", nu: true, toekomst: true, uitleg: "Een speed pedelec gaat tot 45 km/u en wordt gezien als bromfiets. Een goedgekeurde speed pedelec-helm (NTA-8776 keurmerk) of bromfietshelm is wettelijk verplicht. Boete bij geen helm: € 110,-." },
-            { naam: "Elektrische Step", nu: false, toekomst: true, uitleg: "De meeste e-steps zijn nog niet toegestaan op de openbare weg. Voor goedgekeurde bijzondere bromfietsen geldt momenteel geen helmplicht, maar bij nieuwe regelgeving voor lichte elektrische voertuigen kan dit veranderen." }
-        ];
+<script>
+        // VERVANG DEZE TWEE REGELS MET JOUW SUPABASE GEGEVENS:
+        const SUPABASE_URL = 'https://abotommlvkzppelwmulh.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_KeNt2TDS7QKLGoELo1XeIA_07PO6BOn';
+        
+        let lijst = [];
+
+        async function laadVoertuigen() {
+            const sel = document.getElementById('voertuigSelect');
+            sel.innerHTML = '<option value="">Voertuigen ophalen uit database...</option>';
+            
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/voertuigen?select=*&order=id.asc`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                const data = await res.json();
+                
+                if (!Array.isArray(data) || data.length === 0) throw new Error();
+                
+                lijst = data;
+                sel.innerHTML = '<option value="">-- Kies jouw voertuig uit de lijst --</option>';
+                data.forEach((v, i) => {
+                    sel.innerHTML += `<option value="${i}">${v.naam} (tot ${v.max_snelheid} km/u)</option>`;
+                });
+            } catch (e) {
+                sel.innerHTML = '<option value="">⚠️ Kan database niet laden (check URL/Key/Rechten)</option>';
+            }
+        }
+
         function toonResultaat() {
             const i = document.getElementById('voertuigSelect').value;
             if (i === "") return;
             const v = lijst[i];
+            
             document.getElementById('resTitel').innerText = v.naam;
             
             const boxNu = document.getElementById('boxNu');
-            boxNu.className = 'p-4 rounded-xl border ' + (v.nu ? 'bg-red-50 border-red-200 text-red-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900');
-            document.getElementById('resNu').innerText = v.nu ? "Ja, wettelijk verplicht" : "Nee, niet verplicht";
+            boxNu.className = 'p-4 rounded-xl border ' + (v.helmplicht_nu ? 'bg-red-50 border-red-200 text-red-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900');
+            document.getElementById('resNu').innerText = v.helmplicht_nu ? "Ja, wettelijk verplicht" : "Nee, niet verplicht";
             
             const boxToekomst = document.getElementById('boxToekomst');
-            boxToekomst.className = 'p-4 rounded-xl border ' + (v.toekomst ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900');
-            document.getElementById('resToekomst').innerText = v.toekomst ? "Waarschijnlijk verplicht" : "Geen plannen bekend";
+            boxToekomst.className = 'p-4 rounded-xl border ' + (v.helmplicht_toekomst ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900');
+            document.getElementById('resToekomst').innerText = v.helmplicht_toekomst ? "Waarschijnlijk verplicht" : "Geen plannen bekend";
             
             document.getElementById('resUitleg').innerText = v.uitleg;
             document.getElementById('resultaatBox').classList.remove('hidden');
         }
+
+        laadVoertuigen();
     </script>
 </body>
 </html>
