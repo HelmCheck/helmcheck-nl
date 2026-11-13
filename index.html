@@ -69,10 +69,8 @@
         </div>
         <div id="nieuws" class="card">
             <h2 class="sec-title">Laatste nieuws over de helmplicht</h2>
-            <div class="news-item">
-                <span class="news-date">Overheid & Verkeer</span>
-                <h3 style="font-size:16px;margin:4px 0;">Stand van zaken: helmplicht en minimumleeftijd voor fatbikes</h3>
-                <p style="font-size:14px;color:#475569;">Dit overzicht wordt binnenkort automatisch bijgewerkt met de nieuwste berichten van Rijksoverheid en RDW.</p>
+            <div id="nieuwsLijst">
+                <p style="font-size:14px;color:#64748b;">Nieuwsberichten ophalen...</p>
             </div>
         </div>
         <div id="wetgeving" class="card">
@@ -102,6 +100,27 @@
             }
             box.style.display = 'block';
         }
+    </script>
+        <script>
+        const SB_URL = 'https://abotommlvkzppelwmulh.supabase.co';
+        const SB_ANON = 'sb_publishable_KeNt2TDS7QKLGoELo1XeIA_07PO6BOn';
+
+        async function laadNieuws() {
+            const box = document.getElementById('nieuwsLijst');
+            try {
+                const res = await fetch(`${SB_URL}/rest/v1/nieuws?select=*&order=datum.desc&limit=5`, {
+                    headers: { 'apikey': SB_ANON, 'Authorization': `Bearer ${SB_ANON}` }
+                });
+                const items = await res.json();
+                if (!items.length) { box.innerHTML = '<p style="font-size:14px;">Nog geen nieuwe berichten.</p>'; return; }
+                box.innerHTML = items.map(n => `
+                    <div class="news-item">
+                        <span class="news-date">${n.bron} • ${n.datum}</span>
+                        <h3 style="font-size:16px;margin:4px 0;"><a href="${n.url}" target="_blank" style="color:#0f172a;text-decoration:none;">${n.titel} ↗</a></h3>
+                    </div>`).join('');
+            } catch (e) { box.innerHTML = '<p style="font-size:14px;">Kan nieuws momenteel niet laden.</p>'; }
+        }
+        laadNieuws();
     </script>
 </body>
 </html>
