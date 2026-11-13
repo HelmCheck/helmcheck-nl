@@ -1,14 +1,21 @@
 import os, urllib.request, urllib.parse, json, re
 
-TOKEN = os.environ["CRAWLBASE_TOKEN"]
-SB_URL = os.environ["SUPABASE_URL"]
-SB_KEY = os.environ["SUPABASE_SERVICE_KEY"]
+TOKEN = os.environ.get("CRAWLBASE_TOKEN", "").strip()
+SB_URL = os.environ.get("SUPABASE_URL", "").strip().rstrip("/")
+SB_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "").strip()
 
 target = "https://rijksoverheid.nl"
 api_url = f"https://crawlbase.com{TOKEN}&url={urllib.parse.quote(target)}"
 
-html = urllib.request.urlopen(api_url).read().decode("utf-8", errors="ignore")
+try:
+    html = urllib.request.urlopen(api_url, timeout=30).read().decode("utf-8", errors="ignore")
+    print("Crawlbase succesvol! Lengte HTML:", len(html))
+except Exception as e:
+    print("FOUT BIJ CRAWLBASE:", e)
+    exit(1)
+
 links = re.findall(r'<a[^>]+href="(/actueel/nieuws/[^"]+)"[^>]*>(.*?)</a>', html, re.S)
+print("Gevonden nieuwslinks:", len(links))
 
 for pad, ruwe_titel in links[:5]:
     titel = re.sub(r'<[^>]+>', '', ruwe_titel).strip()
@@ -22,5 +29,6 @@ for pad, ruwe_titel in links[:5]:
     req.add_header("Prefer", "resolution=ignore-duplicates")
     try:
         urllib.request.urlopen(req)
-    except Exception:
-        pass
+        print("Opgeslagen:", titel[:40])
+    except Exception as e:
+        print("FOUT BIJ SUPABASE:", e)
