@@ -16,8 +16,9 @@ SUPABASE_SERVICE_KEY = os.environ["SUPABASE_SERVICE_KEY"].strip()
 
 # De officiële websites. Het script zoekt hier automatisch de feed-links.
 BRONNEN = [
-    ("Rijksoverheid", "https://www.rijksoverheid.nl"),
-    ("NOS", "https://nos.nl"),
+    ("Rijksoverheid", "https://feeds.rijksoverheid.nl"),
+    ("NOS", "https://feeds.nos.nl"),
+    ("NOS Politiek", "https://feeds.nos.nl"),
 ]
 
 TREFWOORDEN = [
