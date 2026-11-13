@@ -1,154 +1,122 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helmcheck.nl – De officiële helmplicht check voor e-bike & fatbike</title>
+    <title>Helmcheck.nl – Onafhankelijke helmplicht check</title>
     <script src="https://tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
-
-    <!-- Navigatie -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-10">
-        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+<body class="bg-slate-50 text-slate-800 antialiased">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2 font-extrabold text-xl text-slate-900">
-                <span class="bg-blue-600 text-white p-1.5 rounded-lg text-sm">🛡️</span> Helmcheck<span class="text-blue-600">.nl</span>
+                <span class="bg-blue-600 text-white px-2 py-1 rounded-lg text-sm">🛡️</span> Helmcheck<span class="text-blue-600">.nl</span>
             </div>
-            <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">✓ Bijgewerkt 2026</span>
+            <span class="text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full">✓ Actuele Richtlijnen</span>
         </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="bg-slate-900 text-white pt-14 pb-24 px-4 text-center">
-        <div class="max-w-2xl mx-auto">
-            <span class="inline-block text-blue-400 font-semibold text-sm tracking-wide uppercase mb-3">Gratis Regelgeving Check</span>
-            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 leading-tight">Moet jij een helm op jouw elektrische fiets of fatbike?</h1>
-            <p class="text-slate-300 text-base sm:text-lg">Kies je voertuig en zie direct de huidige wetgeving, boeterisico's en aankomende regels.</p>
+    </header>
+    <section class="bg-slate-900 text-white pt-14 pb-28 px-4 text-center">
+        <div class="max-w-3xl mx-auto">
+            <span class="inline-block bg-white/10 rounded-full px-4 py-1 text-xs font-semibold text-blue-300 mb-4">Onafhankelijk Verkeersplatform</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mb-4">Moet jij een helm op jouw <span class="text-blue-400">e-bike of fatbike?</span></h1>
+            <p class="text-slate-300 text-base sm:text-lg">Check binnen 10 seconden de huidige wetgeving, boeterisico's en aankomende regels.</p>
         </div>
     </section>
-
-    <!-- Hoofdkaart -->
-    <main class="max-w-2xl mx-auto px-4 -mt-14 mb-16">
-        <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 sm:p-8">
-            <label for="voertuigSelect" class="block text-sm font-bold text-slate-700 mb-2">1. Selecteer jouw type voertuig:</label>
-            <select id="voertuigSelect" class="w-full p-4 rounded-xl border-2 border-slate-200 bg-slate-50 text-slate-900 font-medium focus:border-blue-600 focus:bg-white focus:outline-none transition">
-                <option value="">-- Kies jouw voertuig uit de lijst --</option>
-                <option value="0">🚲 Standaard E-bike (trapondersteuning tot 25 km/u)</option>
-                <option value="1">🛞 Fatbike (standaard model tot 25 km/u)</option>
-                <option value="2">⚡ Speed Pedelec (tot 45 km/u, geel kenteken)</option>
-                <option value="3">🛴 Elektrische Step (met of zonder RDW-goedkeuring)</option>
-            </select>
-
-            <button onclick="toonResultaat()" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-md hover:shadow-lg transition duration-200 cursor-pointer">
-                Controleer helmplicht direct →
-            </button>
-
-            <!-- Resultaat -->
-            <div id="resultaatBox" class="hidden mt-8 pt-6 border-t border-slate-100">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 id="resTitel" class="text-2xl font-extrabold text-slate-900"></h2>
-                    <span id="resBadge" class="text-xs font-bold px-3 py-1 rounded-full"></span>
+    <main class="max-w-3xl mx-auto px-4 -mt-16 relative z-20">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 sm:p-10 space-y-5">
+            <div>
+                <label class="block text-sm font-bold mb-2">1. Welk type voertuig heb je?</label>
+                <select id="typeSelect" class="w-full p-3.5 rounded-xl border-2 border-slate-200 bg-slate-50 font-semibold">
+                    <option value="ebike">🚲 Standaard E-bike (elektrische fiets)</option>
+                    <option value="fatbike">🛞 Fatbike (brede banden)</option>
+                    <option value="speedpedelec">⚡ Speed Pedelec (geel kenteken)</option>
+                    <option value="estep">🛴 Elektrische Step</option>
+                </select>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-bold mb-2">2. Zit er een gashendel op?</label>
+                    <select id="gasSelect" class="w-full p-3.5 rounded-xl border-2 border-slate-200 bg-slate-50">
+                        <option value="nee">Nee (alleen trapondersteuning)</option>
+                        <option value="6km">Alleen loophulp (tot 6 km/u)</option>
+                        <option value="ja">Ja (rijdt zelfstandig > 6 km/u)</option>
+                    </select>
                 </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-                    <div id="boxNu" class="p-4 rounded-xl border">
-                        <div class="text-xs font-bold uppercase tracking-wider opacity-75 mb-1">Wetgeving Vandaag</div>
-                        <div id="resNu" class="font-bold text-base"></div>
-                    </div>
-                    <div id="boxToekomst" class="p-4 rounded-xl border">
-                        <div class="text-xs font-bold uppercase tracking-wider opacity-75 mb-1">Toekomstige Plannen</div>
-                        <div id="resToekomst" class="font-bold text-base"></div>
-                    </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2">3. Maximumsnelheid?</label>
+                    <select id="snelheidSelect" class="w-full p-3.5 rounded-xl border-2 border-slate-200 bg-slate-50">
+                        <option value="25">Tot 25 km/u (standaard)</option>
+                        <option value="45">25 tot 45 km/u (opgevoerd / speed)</option>
+                    </select>
                 </div>
-
-                <div class="bg-slate-50 border border-slate-200/80 p-4 rounded-xl text-sm text-slate-700 leading-relaxed mb-6" id="resUitleg"></div>
-
-                <!-- Verdienmodel: Trendy Helmen -->
-                <div class="bg-gradient-to-r from-slate-50 to-blue-50/50 border border-blue-100 rounded-xl p-5">
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="font-bold text-slate-900 text-sm">🔥 Aanbevolen & trendy helmen</h3>
-                        <span class="text-[11px] text-slate-400 bg-white px-2 py-0.5 rounded border border-slate-200">Partnerlinks</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <a href="#" onclick="alert('Hier komt jouw Bol.com / Coolblue affiliate link!')" class="bg-white p-3.5 rounded-lg border border-slate-200 hover:border-blue-500 transition shadow-sm block">
-                            <div class="font-bold text-slate-900 text-sm">Thousand Heritage Helm</div>
-                            <div class="text-xs text-slate-500 mt-1">Stijlvolle retro stadshelm. Ideaal voor e-bike & fatbike.</div>
-                            <div class="text-xs font-bold text-blue-600 mt-2">Bekijk actuele prijs →</div>
-                        </a>
-                        <a href="#" onclick="alert('Hier komt jouw Bol.com / Coolblue affiliate link!')" class="bg-white p-3.5 rounded-lg border border-slate-200 hover:border-blue-500 transition shadow-sm block">
-                            <div class="font-bold text-slate-900 text-sm">Abus Pedelec 2.0 (NTA)</div>
-                            <div class="text-xs text-slate-500 mt-1">Goedgekeurd tot 45 km/u met geïntegreerd LED-licht.</div>
-                            <div class="text-xs font-bold text-blue-600 mt-2">Bekijk actuele prijs →</div>
-                        </a>
-                    </div>
+            </div>
+            <button onclick="berekenAdvies()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-4 rounded-xl shadow-lg cursor-pointer">Bekijk direct mijn uitslag →</button>
+            <div id="resultaatBox" class="hidden pt-6 border-t border-slate-200">
+                <div id="alertBanner" class="p-5 rounded-2xl border-2">
+                    <div class="text-xs font-extrabold uppercase mb-1" id="resLabel"></div>
+                    <h2 class="text-2xl font-extrabold mb-2" id="resTitel"></h2>
+                    <p class="text-sm" id="resUitleg"></p>
                 </div>
             </div>
         </div>
-
-        <!-- Vertrouwensbalk -->
-        <div class="grid grid-cols-3 gap-4 text-center my-8 text-xs text-slate-500">
-            <div class="bg-white p-4 rounded-xl border border-slate-200/60 shadow-sm"><strong class="block text-slate-900 text-sm mb-0.5">100% Gratis</strong>Direct duidelijkheid</div>
-            <div class="bg-white p-4 rounded-xl border border-slate-200/60 shadow-sm"><strong class="block text-slate-900 text-sm mb-0.5">RDW & Overheid</strong>Actuele richtlijnen</div>
-            <div class="bg-white p-4 rounded-xl border border-slate-200/60 shadow-sm"><strong class="block text-slate-900 text-sm mb-0.5">Onafhankelijk</strong>Eerlijk helmadvies</div>
-        </div>
     </main>
-
-    <footer class="text-center text-xs text-slate-400 pb-10">
-        &copy; 2026 Helmcheck.nl – Alle rechten voorbehouden.
-    </footer>
-
-<script>
-        // VERVANG DEZE TWEE REGELS MET JOUW SUPABASE GEGEVENS:
-        const SUPABASE_URL = 'https://abotommlvkzppelwmulh.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_KeNt2TDS7QKLGoELo1XeIA_07PO6BOn';
-        
-        let lijst = [];
-
-        async function laadVoertuigen() {
-            const sel = document.getElementById('voertuigSelect');
-            sel.innerHTML = '<option value="">Voertuigen ophalen uit database...</option>';
-            
-            try {
-                const res = await fetch(`${SUPABASE_URL}/rest/v1/voertuigen?select=*&order=id.asc`, {
-                    headers: {
-                        'apikey': SUPABASE_KEY,
-                        'Authorization': `Bearer ${SUPABASE_KEY}`
-                    }
-                });
-                const data = await res.json();
-                
-                if (!Array.isArray(data) || data.length === 0) throw new Error();
-                
-                lijst = data;
-                sel.innerHTML = '<option value="">-- Kies jouw voertuig uit de lijst --</option>';
-                data.forEach((v, i) => {
-                    sel.innerHTML += `<option value="${i}">${v.naam} (tot ${v.max_snelheid} km/u)</option>`;
-                });
-            } catch (e) {
-                sel.innerHTML = '<option value="">⚠️ Kan database niet laden (check URL/Key/Rechten)</option>';
+        <section class="max-w-5xl mx-auto px-4 mt-14 mb-16">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-extrabold text-slate-900">🔥 Populaire & trendy e-bike helmen</h2>
+            <span class="text-xs text-slate-400 bg-white px-3 py-1 rounded-full border">Partnerlinks</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+                <div>
+                    <span class="bg-blue-50 text-blue-700 text-xs font-bold px-2.5 py-1 rounded">Stadshelm</span>
+                    <h3 class="font-extrabold text-lg mt-3">Thousand Heritage 2.0</h3>
+                    <p class="text-sm text-slate-500 mt-2">Retro design met magnetische sluiting. Ideaal voor e-bike & fatbike.</p>
+                </div>
+                <a href="#" onclick="alert('Hier komt jouw affiliate-link!')" class="mt-5 block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-sm py-3 rounded-xl">Bekijk prijs →</a>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+                <div>
+                    <span class="bg-emerald-50 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded">NTA-8776 (45 km/u)</span>
+                    <h3 class="font-extrabold text-lg mt-3">Abus Pedelec 2.0</h3>
+                    <p class="text-sm text-slate-500 mt-2">Goedgekeurd voor speed pedelecs met geïntegreerd LED-achterlicht.</p>
+                </div>
+                <a href="#" onclick="alert('Hier komt jouw affiliate-link!')" class="mt-5 block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-sm py-3 rounded-xl">Bekijk prijs →</a>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+                <div>
+                    <span class="bg-amber-50 text-amber-700 text-xs font-bold px-2.5 py-1 rounded">Beste prijs-kwaliteit</span>
+                    <h3 class="font-extrabold text-lg mt-3">AGU Urban E-bike Helm</h3>
+                    <p class="text-sm text-slate-500 mt-2">Lichtgewicht urban helm met afneembaar vizier tegen wind.</p>
+                </div>
+                <a href="#" onclick="alert('Hier komt jouw affiliate-link!')" class="mt-5 block text-center bg-slate-900 hover:bg-blue-600 text-white font-bold text-sm py-3 rounded-xl">Bekijk prijs →</a>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs">&copy; 2026 Helmcheck.nl – Onafhankelijk informatieplatform.</footer>
+    <script>
+        function berekenAdvies() {
+            const type = document.getElementById('typeSelect').value;
+            const gas = document.getElementById('gasSelect').value;
+            const snelheid = document.getElementById('snelheidSelect').value;
+            const banner = document.getElementById('alertBanner');
+            if (gas === 'ja' || snelheid === '45' || type === 'speedpedelec') {
+                banner.className = 'p-5 rounded-2xl border-2 bg-red-50 border-red-200 text-red-950';
+                document.getElementById('resLabel').innerText = '⚠️ Wettelijke verplichting';
+                document.getElementById('resTitel').innerText = 'Helm is VERPLICHT';
+                document.getElementById('resUitleg').innerText = 'Door een gashendel (>6 km/u) of snelheid boven 25 km/u geldt dit voertuig als bromfiets. Een goedgekeurde helm is verplicht.';
+            } else if (type === 'fatbike') {
+                banner.className = 'p-5 rounded-2xl border-2 bg-amber-50 border-amber-200 text-amber-950';
+                document.getElementById('resLabel').innerText = 'ℹ️ Huidige status';
+                document.getElementById('resTitel').innerText = 'Nu geen helmplicht, wel plannen';
+                document.getElementById('resUitleg').innerText = 'Tot 25 km/u zonder gashendel geldt nu nog geen helmplicht, maar de overheid werkt aan nieuwe regels.';
+            } else {
+                banner.className = 'p-5 rounded-2xl border-2 bg-emerald-50 border-emerald-200 text-emerald-950';
+                document.getElementById('resLabel').innerText = '✅ Vrijstelling';
+                document.getElementById('resTitel').innerText = 'Geen helmplicht';
+                document.getElementById('resUitleg').innerText = 'Voor een standaard e-bike tot 25 km/u is een helm niet verplicht, wel aangeraden voor veiligheid.';
             }
-        }
-
-        function toonResultaat() {
-            const i = document.getElementById('voertuigSelect').value;
-            if (i === "") return;
-            const v = lijst[i];
-            
-            document.getElementById('resTitel').innerText = v.naam;
-            
-            const boxNu = document.getElementById('boxNu');
-            boxNu.className = 'p-4 rounded-xl border ' + (v.helmplicht_nu ? 'bg-red-50 border-red-200 text-red-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900');
-            document.getElementById('resNu').innerText = v.helmplicht_nu ? "Ja, wettelijk verplicht" : "Nee, niet verplicht";
-            
-            const boxToekomst = document.getElementById('boxToekomst');
-            boxToekomst.className = 'p-4 rounded-xl border ' + (v.helmplicht_toekomst ? 'bg-amber-50 border-amber-200 text-amber-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900');
-            document.getElementById('resToekomst').innerText = v.helmplicht_toekomst ? "Waarschijnlijk verplicht" : "Geen plannen bekend";
-            
-            document.getElementById('resUitleg').innerText = v.uitleg;
             document.getElementById('resultaatBox').classList.remove('hidden');
         }
-
-        laadVoertuigen();
     </script>
 </body>
 </html>
