@@ -4,24 +4,16 @@ TOKEN = "".join(os.environ.get("CRAWLBASE_TOKEN", "").split())
 SB_URL = "".join(os.environ.get("SUPABASE_URL", "").split()).rstrip("/")
 SB_KEY = "".join(os.environ.get("SUPABASE_SERVICE_KEY", "").split())
 
+trefwoorden = ["helm", "fatbike", "e-bike", "elektrische fiets", "speed pedelec", "step", "verkeer"]
 target = "https://rijksoverheid.nl"
-params = urllib.parse.urlencode({"token": TOKEN, "url": target})
-api_url = f"https://api.crawlbase.com/?{params}"
+api_url = f"https://crawlbase.com?{urllib.parse.urlencode({'token': TOKEN, 'url': target})}"
 
-try:
-    req_cb = urllib.request.Request(api_url, headers={"User-Agent": "Mozilla/5.0"})
-    html = urllib.request.urlopen(req_cb, timeout=30).read().decode("utf-8", errors="ignore")
-    print("Crawlbase succes! Ontvangen bytes:", len(html))
-except Exception as e:
-    print("FOUT BIJ CRAWLBASE:", repr(e))
-    exit(1)
-
+html = urllib.request.urlopen(api_url, timeout=30).read().decode("utf-8", errors="ignore")
 links = re.findall(r'<a[^>]+href="(/actueel/nieuws/[^"]+)"[^>]*>(.*?)</a>', html, re.S)
-print("Gevonden berichten:", len(links))
 
-for pad, ruwe_titel in links[:5]:
+for pad, ruwe_titel in links:
     titel = re.sub(r'<[^>]+>', '', ruwe_titel).strip()
-    if len(titel) < 15:
+    if len(titel) < 15 or not any(w in titel.lower() for w in trefwoorden):
         continue
     payload = json.dumps({"titel": titel, "url": "https://rijksoverheid.nl" + pad, "bron": "Rijksoverheid"}).encode()
     req = urllib.request.Request(f"{SB_URL}/rest/v1/nieuws", data=payload, method="POST")
@@ -31,6 +23,6 @@ for pad, ruwe_titel in links[:5]:
     req.add_header("Prefer", "resolution=ignore-duplicates")
     try:
         urllib.request.urlopen(req)
-        print("Opgeslagen:", titel[:45])
-    except Exception as e:
-        print("FOUT BIJ SUPABASE:", repr(e))
+        print("Relevant bericht opgeslagen:", titel[:50])
+    except Exception:
+        pass
