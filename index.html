@@ -9,31 +9,39 @@
 <body>
     <header>
         <div class="nav">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        <path d="m9 12 2 2 4-4"/>
-                    </svg>
-                </div>
-                <div class="logo-text">Helmcheck<span>.nl</span></div>
-            </a>
-            <span class="badge">✓ Actuele Richtlijnen 2026</span>
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <path d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">Helmcheck<span>.nl</span></div>
+                </a>
+                <nav class="menu">
+                    <a href="#check">Helmcheck</a>
+                    <a href="#nieuws">Laatste nieuws</a>
+                    <a href="#wetgeving">Wetgeving & Boetes</a>
+                    <a href="helmen.html">Aanbevolen helmen</a>
+                </nav>
+            </div>
+            <span class="badge">✓ Richtlijnen 2026</span>
         </div>
     </header>
     <section class="hero">
         <h1>Moet jij een helm op jouw e-bike of fatbike?</h1>
         <p>Doe de onafhankelijke check en zie direct de huidige wetgeving, boeterisico's en aankomende regels.</p>
     </section>
-    <main class="main-wrap">
+        <main id="check" class="main-wrap">
         <div class="card">
             <div class="form-group">
                 <label>1. Welk type voertuig heb je?</label>
                 <select id="typeSelect">
-                    <option value="ebike">🚲 Standaard E-bike (elektrische fiets)</option>
-                    <option value="fatbike">🛞 Fatbike (brede banden)</option>
-                    <option value="speedpedelec">⚡ Speed Pedelec (geel kenteken)</option>
-                    <option value="estep">🛴 Elektrische Step</option>
+                    <option value="ebike">Standaard E-bike (elektrische fiets)</option>
+                    <option value="fatbike">Fatbike (brede banden)</option>
+                    <option value="speedpedelec">Speed Pedelec (geel kenteken)</option>
+                    <option value="estep">Elektrische Step</option>
                 </select>
             </div>
             <div class="row form-group">
@@ -59,24 +67,19 @@
                 <p id="resTekst"></p>
             </div>
         </div>
-    </main>
-    <section class="shop-wrap">
-        <h2>🔥 Populaire & trendy e-bike helmen</h2>
-        <div class="shop-grid">
-            <div class="helm-card">
-                <div><span class="tag">Meest gekozen</span><h3>Thousand Heritage 2.0</h3><p style="font-size:14px;color:#64748b;margin-top:8px;">Stijlvolle retro stadshelm met magnetische sluiting.</p></div>
-                <a href="#" onclick="alert('Affiliate link')" class="helm-btn">Bekijk prijs →</a>
-            </div>
-            <div class="helm-card">
-                <div><span class="tag">NTA-8776 (45 km/u)</span><h3>Abus Pedelec 2.0</h3><p style="font-size:14px;color:#64748b;margin-top:8px;">Goedgekeurd voor speed pedelecs met LED-achterlicht.</p></div>
-                <a href="#" onclick="alert('Affiliate link')" class="helm-btn">Bekijk prijs →</a>
-            </div>
-            <div class="helm-card">
-                <div><span class="tag">Beste prijs-kwaliteit</span><h3>AGU Urban Helm</h3><p style="font-size:14px;color:#64748b;margin-top:8px;">Comfortabele stadshelm met afneembaar vizier.</p></div>
-                <a href="#" onclick="alert('Affiliate link')" class="helm-btn">Bekijk prijs →</a>
+        <div id="nieuws" class="card">
+            <h2 class="sec-title">Laatste nieuws over de helmplicht</h2>
+            <div class="news-item">
+                <span class="news-date">Overheid & Verkeer</span>
+                <h3 style="font-size:16px;margin:4px 0;">Stand van zaken: helmplicht en minimumleeftijd voor fatbikes</h3>
+                <p style="font-size:14px;color:#475569;">Dit overzicht wordt binnenkort automatisch bijgewerkt met de nieuwste berichten van Rijksoverheid en RDW.</p>
             </div>
         </div>
-    </section>
+        <div id="wetgeving" class="card">
+            <h2 class="sec-title">Wetgeving & Keurmerken uitgelegd</h2>
+            <p style="font-size:14px;color:#475569;">Een gewone fietshelm heeft het <strong>EN 1078</strong> keurmerk. Voor snelle elektrische fietsen tot 45 km/u (speed pedelecs) is het zwaardere <strong>NTA 8776</strong> keurmerk wettelijk verplicht. Rijden zonder verplichte helm levert een boete op van € 110,-.</p>
+        </div>
+    </main>
     <footer>&copy; 2026 Helmcheck.nl – Onafhankelijk informatieplatform voor elektrische tweewielers.</footer>
     <script>
         function checkHelm() {
@@ -86,16 +89,16 @@
             const box = document.getElementById('resBox');
             if (g === 'ja' || s === '45' || t === 'speedpedelec') {
                 box.className = 'result res-rood';
-                document.getElementById('resTitel').innerText = '⚠️ Helm is VERPLICHT';
-                document.getElementById('resTekst').innerText = 'Door een gashendel (>6 km/u) of snelheid boven 25 km/u geldt dit voertuig als bromfiets. Een goedgekeurde helm is verplicht.';
+                document.getElementById('resTitel').innerText = 'Helm is wettelijk verplicht';
+                document.getElementById('resTekst').innerText = 'Door een gashendel (>6 km/u) of snelheid boven 25 km/u valt dit voertuig onder de regels van een bromfiets. Een goedgekeurde helm (NTA-8776) is verplicht.';
             } else if (t === 'fatbike') {
                 box.className = 'result res-oranje';
-                document.getElementById('resTitel').innerText = 'ℹ️ Nu geen helmplicht, wel plannen';
-                document.getElementById('resTekst').innerText = 'Tot 25 km/u zonder gashendel geldt nu nog geen helmplicht, maar de overheid werkt aan nieuwe regels voor fatbikes.';
+                document.getElementById('resTitel').innerText = 'Nu geen helmplicht, wel wetgeving in voorbereiding';
+                document.getElementById('resTekst').innerText = 'Tot 25 km/u zonder gashendel geldt nu nog geen helmplicht, maar er wordt gewerkt aan nieuwe regels voor fatbikes.';
             } else {
                 box.className = 'result res-groen';
-                document.getElementById('resTitel').innerText = '✅ Geen helmplicht';
-                document.getElementById('resTekst').innerText = 'Voor een standaard e-bike tot 25 km/u is een helm niet verplicht, wel aangeraden voor je veiligheid.';
+                document.getElementById('resTitel').innerText = 'Geen wettelijke helmplicht';
+                document.getElementById('resTekst').innerText = 'Voor een standaard e-bike tot 25 km/u is een helm niet verplicht. Verkeersorganisaties raden dit voor de veiligheid wel aan.';
             }
             box.style.display = 'block';
         }
