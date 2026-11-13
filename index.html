@@ -36,17 +36,25 @@
         <main id="check" class="main-wrap">
         <div class="card">
             <div class="form-group">
-                <label>1. Welk type voertuig heb je?</label>
-                <select id="typeSelect">
-                    <option value="ebike">Standaard E-bike (elektrische fiets)</option>
-                    <option value="fatbike">Fatbike (brede banden)</option>
-                    <option value="speedpedelec">Speed Pedelec (geel kenteken)</option>
-                    <option value="estep">Elektrische Step</option>
-                </select>
+                    <label>1. Welk type voertuig heb je?</label>
+                    <select id="typeSelect">
+                        <option value="ebike">Standaard E-bike (elektrische fiets)</option>
+                        <option value="fatbike">Fatbike (brede banden)</option>
+                        <option value="speedpedelec">Speed Pedelec (geel kenteken)</option>
+                        <option value="estep">Elektrische Step</option>
+                    </select>
+                </div>
+                <div>
+                    <label>2. Wat is de leeftijd van de bestuurder?</label>
+                    <select id="leeftijdSelect">
+                        <option value="18plus">18 jaar of ouder</option>
+                        <option value="onder18">Jonger dan 18 jaar</option>
+                    </select>
+                </div>
             </div>
             <div class="row form-group">
                 <div>
-                    <label>2. Zit er een gashendel op?</label>
+                    <label>3. Zit er een gashendel op?</label>
                     <select id="gasSelect">
                         <option value="nee">Nee (alleen trapondersteuning)</option>
                         <option value="6km">Alleen loophulp (tot 6 km/u)</option>
@@ -54,7 +62,7 @@
                     </select>
                 </div>
                 <div>
-                    <label>3. Maximumsnelheid?</label>
+                    <label>4. Maximumsnelheid?</label>
                     <select id="snelheidSelect">
                         <option value="25">Tot 25 km/u (standaard)</option>
                         <option value="45">25 tot 45 km/u (opgevoerd / speed)</option>
