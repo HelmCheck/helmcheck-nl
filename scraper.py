@@ -7,7 +7,7 @@ SB_KEY = "".join(os.environ.get("SUPABASE_SERVICE_KEY", "").split())
 trefwoorden = ["helm", "fatbike", "e-bike", "elektrische fiets", "speed pedelec", "fietshelm"]
 bronnen = [
     ("Rijksoverheid", "https://rijksoverheid.nl", "https://rijksoverheid.nl"),
-    ("NU.nl", "https://nu.nl", "https://nu.nl")
+    ("NOS", "https://nos.nl", "https://nos.nl")
 ]
 
 for bron, doel, basis in bronnen:
@@ -22,7 +22,7 @@ for bron, doel, basis in bronnen:
     links = re.findall(r'<a[^>]+href="(/[^"]+)"[^>]*>(.*?)</a>', html, re.S)
     for pad, ruwe_titel in links:
         titel = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', ruwe_titel)).strip()
-        if len(titel) < 25 or pad.count("/") < 3 or not any(w in titel.lower() for w in trefwoorden):
+        if len(titel) < 25 or pad.count("/") < 2 or not any(w in titel.lower() for w in trefwoorden):
             continue
         payload = json.dumps({"titel": titel, "url": basis + pad, "bron": bron}).encode()
         req = urllib.request.Request(f"{SB_URL}/rest/v1/nieuws", data=payload, method="POST")
