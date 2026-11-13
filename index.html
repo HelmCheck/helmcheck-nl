@@ -3,81 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helmcheck.nl - Moet ik een helm op?</title>
+    <title>Helmcheck.nl – Check de helmplicht voor jouw e-bike of fatbike</title>
     <script src="https://jsdelivr.net"></script>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f4f7f6; color: #333; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        select, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
-        button { background: #0066cc; color: white; border: none; font-weight: bold; cursor: pointer; }
-        button:hover { background: #0052a3; }
-        .resultaat { display: none; margin-top: 20px; padding: 15px; border-radius: 8px; background: #eef6ff; border-left: 5px solid #0066cc; }
-        .reclame-blok { border: 1px dashed #aaa; padding: 15px; border-radius: 8px; background: #fafafa; margin-top: 20px; font-size: 14px; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="card">
-        <h1>🚲 Helmcheck.nl</h1>
-        <p>Kies jouw elektrische voertuig en check direct of een helm verplicht is (of binnenkort wordt).</p>
-        
-        <label for="voertuigSelect"><strong>Kies je voertuig:</strong></label>
-        <select id="voertuigSelect">
-            <option value="">Gegevens laden uit database...</option>
-        </select>
-
-        <button onclick="toonResultaat()">Check helmplicht</button>
-
-        <div id="resultaatBox" class="resultaat">
-            <h3 id="resTitel"></h3>
-            <p id="resNu"></p>
-            <p id="resToekomst"></p>
-            <p id="resUitleg"></p>
-
-            <div class="reclame-blok">
-                <strong>💡 Tip: Trendy & goedgekeurde helmen</strong><br>
-                Hier komt straks jouw affiliate-link naar stijlvolle stadshelmen (zoals Thousand of Abus).
+    <header>
+        <div class="nav">
+            <div class="logo">🛡️ Helmcheck.nl</div>
+            <span class="badge">Actuele Regelgeving</span>
+        </div>
+    </header>
+    <div class="hero">
+        <h1>Moet jij binnenkort een helm op je e-bike of fatbike?</h1>
+        <p>Doe de gratis check en ontdek direct de huidige wetgeving én verwachte regels.</p>
+    </div>
+    <div class="container">
+        <div class="card">
+            <label for="voertuigSelect">Selecteer jouw type voertuig:</label>
+            <select id="voertuigSelect"><option value="">Voertuigen laden...</option></select>
+            <button class="btn" onclick="toonResultaat()">Controleer helmplicht →</button>
+            <div id="resultaatBox" class="resultaat">
+                <h2 id="resTitel"></h2>
+                <div class="grid">
+                    <div id="boxNu" class="box"><strong>Status Vandaag:</strong><br><span id="resNu"></span></div>
+                    <div id="boxToekomst" class="box"><strong>Toekomstige Plannen:</strong><br><span id="resToekomst"></span></div>
+                </div>
+                <div class="uitleg" id="resUitleg"></div>
+                <div class="shop">
+                    <strong>🔥 Populaire & trendy helmen (Partnerlinks)</strong>
+                    <a href="#" class="helm" onclick="alert('Hier komt straks jouw affiliate-link!')"><strong>Thousand Heritage Stadshelm</strong> – Retro design voor e-bike & fatbike →</a>
+                    <a href="#" class="helm" onclick="alert('Hier komt straks jouw affiliate-link!')"><strong>Abus Pedelec 2.0 (NTA-8776)</strong> – Goedgekeurd tot 45 km/u →</a>
+                </div>
             </div>
         </div>
+        <div class="card faq">
+            <h2>Veelgestelde vragen over de helmplicht</h2>
+            <div class="faq-item"><h3>Wanneer wordt een helm verplicht op een fatbike?</h3><p>De overheid werkt aan nieuwe regels voor fatbikes en opgevoerde e-bikes. Met onze tool houden we de actuele status per voertuigtype bij.</p></div>
+            <div class="faq-item"><h3>Welke helm heb ik nodig voor een Speed Pedelec?</h3><p>Voor een speed pedelec (tot 45 km/u) is een goedgekeurde speed pedelec-helm (NTA-8776) of bromfietshelm verplicht.</p></div>
+        </div>
     </div>
-
+    <footer>&copy; 2026 Helmcheck.nl – Onafhankelijke informatie over elektrische tweewielers.</footer>
     <script>
-        // VERVANG DEZE TWEE REGELS MET JOUW SUPABASE GEGEVENS:
         const SUPABASE_URL = 'https://abotommlvkzppelwmulh.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_KeNt2TDS7QKLGoELo1XeIA_07PO6BOn';
+        const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let lijst = [];
 
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        let opgeslagenVoertuigen = [];
-
-        async function laadVoertuigen() {
-            const { data, error } = await supabaseClient.from('voertuigen').select('*');
-            const select = document.getElementById('voertuigSelect');
-            
-            if (error || !data) {
-                select.innerHTML = '<option>Fout bij laden (check je sleutels)</option>';
-                return;
-            }
-
-            opgeslagenVoertuigen = data;
-            select.innerHTML = '<option value="">-- Maak een keuze --</option>';
-            data.forEach((v, index) => {
-                select.innerHTML += `<option value="${index}">${v.naam} (tot ${v.max_snelheid} km/u)</option>`;
-            });
+        async function laad() {
+            const { data } = await db.from('voertuigen').select('*');
+            const sel = document.getElementById('voertuigSelect');
+            if (!data) { sel.innerHTML = '<option>Fout bij laden</option>'; return; }
+            lijst = data;
+            sel.innerHTML = '<option value="">-- Kies jouw voertuig --</option>';
+            data.forEach((v, i) => sel.innerHTML += `<option value="${i}">${v.naam} (max. ${v.max_snelheid} km/u)</option>`);
         }
 
         function toonResultaat() {
-            const index = document.getElementById('voertuigSelect').value;
-            if (index === "") return;
-
-            const v = opgeslagenVoertuigen[index];
+            const i = document.getElementById('voertuigSelect').value;
+            if (i === "") return;
+            const v = lijst[i];
             document.getElementById('resTitel').innerText = v.naam;
-            document.getElementById('resNu').innerHTML = "<strong>Helmplicht nu:</strong> " + (v.helmplicht_nu ? "✅ Ja, verplicht" : "❌ Nee, niet verplicht");
-            document.getElementById('resToekomst').innerHTML = "<strong>Helmplicht toekomst:</strong> " + (v.helmplicht_toekomst ? "⚠️ Ja, plannen in de maak" : "Nee, geen plannen bekend");
+            document.getElementById('boxNu').className = 'box ' + (v.helmplicht_nu ? 'rood' : 'groen');
+            document.getElementById('resNu').innerText = v.helmplicht_nu ? "Ja, wettelijk verplicht" : "Nee, niet verplicht";
+            document.getElementById('boxToekomst').className = 'box ' + (v.helmplicht_toekomst ? 'oranje' : 'groen');
+            document.getElementById('resToekomst').innerText = v.helmplicht_toekomst ? "Mogelijk verplicht (plannen)" : "Geen plannen bekend";
             document.getElementById('resUitleg').innerText = v.uitleg;
             document.getElementById('resultaatBox').style.display = 'block';
         }
-
-        laadVoertuigen();
+        laad();
     </script>
 </body>
 </html>
