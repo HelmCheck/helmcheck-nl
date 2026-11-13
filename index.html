@@ -90,21 +90,22 @@
     <script>
         function checkHelm() {
             const t = document.getElementById('typeSelect').value;
+            const l = document.getElementById('leeftijdSelect').value;
             const g = document.getElementById('gasSelect').value;
             const s = document.getElementById('snelheidSelect').value;
             const box = document.getElementById('resBox');
             if (g === 'ja' || s === '45' || t === 'speedpedelec') {
                 box.className = 'result res-rood';
-                document.getElementById('resTitel').innerText = 'Helm is wettelijk verplicht';
+                document.getElementById('resTitel').innerText = 'Helm is nu al wettelijk verplicht';
                 document.getElementById('resTekst').innerText = 'Door een gashendel (>6 km/u) of snelheid boven 25 km/u valt dit voertuig onder de regels van een bromfiets. Een goedgekeurde helm (NTA-8776) is verplicht.';
-            } else if (t === 'fatbike') {
+            } else if (l === 'onder18') {
                 box.className = 'result res-oranje';
-                document.getElementById('resTitel').innerText = 'Nu geen helmplicht, wel wetgeving in voorbereiding';
-                document.getElementById('resTekst').innerText = 'Tot 25 km/u zonder gashendel geldt nu nog geen helmplicht, maar er wordt gewerkt aan nieuwe regels voor fatbikes.';
+                document.getElementById('resTitel').innerText = 'Nu nog niet, maar vanaf 2027 waarschijnlijk verplicht';
+                document.getElementById('resTekst').innerText = 'Het kabinet bereidt een wettelijke helmplicht voor die in 2027 ingaat voor alle bestuurders tot 18 jaar op een fatbike, e-bike of e-step.';
             } else {
                 box.className = 'result res-groen';
                 document.getElementById('resTitel').innerText = 'Geen wettelijke helmplicht';
-                document.getElementById('resTekst').innerText = 'Voor een standaard e-bike tot 25 km/u is een helm niet verplicht. Verkeersorganisaties raden dit voor de veiligheid wel aan.';
+                document.getElementById('resTekst').innerText = 'Voor bestuurders van 18 jaar en ouder op een standaard e-bike of fatbike tot 25 km/u (zonder gashendel) geldt geen helmplicht en zijn er ook geen plannen voor.';
             }
             box.style.display = 'block';
         }
