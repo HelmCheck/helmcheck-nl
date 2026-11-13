@@ -16,7 +16,7 @@ SUPABASE_SERVICE_KEY = os.environ["SUPABASE_SERVICE_KEY"].strip()
 
 # De officiële websites. Het script zoekt hier automatisch de feed-links.
 BRONNEN = [
-    ("Rijksoverheid", "https://feeds.rijksoverheid.nl"),
+    ("Rijksoverheid", "https://rijksoverheid.nl"),
     ("NOS", "https://feeds.nos.nl"),
     ("NOS Politiek", "https://feeds.nos.nl"),
 ]
@@ -182,58 +182,35 @@ def sla_op(artikel):
         pass
 
 
-def verwerk_bron(bron, website_url):
+def verwerk_bron(bron, feed_url):
     print(f"\nBron: {bron}")
+    print(f"Feed: {feed_url}")
 
     try:
-        feed_urls = vind_feed_urls(website_url)
+        items = lees_feed(feed_url)
+        print(f"Gevonden items in feed: {len(items)}")
     except Exception as fout:
-        print(f"Website niet bereikbaar: {fout}")
+        print(f"Feed kon niet worden gelezen: {fout}")
         return
 
-    if not feed_urls:
-        print("Geen RSS- of Atom-feed gevonden op de website.")
-        return
+    for item in items:
+        titel = veldtekst(item, {"title"})
+        beschrijving = veldtekst(item, {"description", "summary", "content", "encoded"})
+        link = artikel_link(item)
 
-    for feed_url in feed_urls:
-        print(f"Feed: {feed_url}")
-
-        try:
-            items = lees_feed(feed_url)
-        except Exception as fout:
-            print(f"Feed kon niet worden gelezen: {fout}")
+        if not titel or not link:
             continue
 
-        for item in items:
-            titel = veldtekst(item, {"title"})
-            beschrijving = veldtekst(
-                item,
-                {"description", "summary", "content", "encoded"},
-            )
-            link = artikel_link(item)
+        zoektekst = f"{titel} {beschrijving}".lower()
+        if not any(term in zoektekst for term in TREFWOORDEN):
+            continue
 
-            if not titel or not link:
-                continue
-
-            zoektekst = f"{titel} {beschrijving}".lower()
-            if not any(term in zoektekst for term in TREFWOORDEN):
-                continue
-
-            artikel = {
-                "titel": titel,
-                "url": link,
-                "bron": bron,
-                "datum": artikel_datum(item),
-            }
-
-            try:
-                sla_op(artikel)
-                print(f"Opgeslagen: {titel}")
-            except urllib.error.HTTPError as fout:
-                details = fout.read().decode("utf-8", errors="replace")
-                print(f"Supabase-fout {fout.code}: {details}")
-            except Exception as fout:
-                print(f"Opslaan mislukt: {fout}")
+        artikel = {"titel": titel, "url": link, "bron": bron, "datum": artikel_datum(item)}
+        try:
+            sla_op(artikel)
+            print(f"Opgeslagen: {titel}")
+        except Exception as fout:
+            print(f"Opslaan mislukt: {fout}")
 
 
 if __name__ == "__main__":
