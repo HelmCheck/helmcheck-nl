@@ -44,19 +44,29 @@
         </div>
     </div>
     <footer>&copy; 2026 Helmcheck.nl – Onafhankelijke informatie over elektrische tweewielers.</footer>
-    <script>
+<script>
         const SUPABASE_URL = 'https://abotommlvkzppelwmulh.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_KeNt2TDS7QKLGoELo1XeIA_07PO6BOn';
-        const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         let lijst = [];
 
         async function laad() {
-            const { data } = await db.from('voertuigen').select('*');
             const sel = document.getElementById('voertuigSelect');
-            if (!data) { sel.innerHTML = '<option>Fout bij laden</option>'; return; }
-            lijst = data;
-            sel.innerHTML = '<option value="">-- Kies jouw voertuig --</option>';
-            data.forEach((v, i) => sel.innerHTML += `<option value="${i}">${v.naam} (max. ${v.max_snelheid} km/u)</option>`);
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/voertuigen?select=*`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                const data = await res.json();
+                if (!Array.isArray(data)) throw new Error();
+                
+                lijst = data;
+                sel.innerHTML = '<option value="">-- Kies jouw voertuig --</option>';
+                data.forEach((v, i) => sel.innerHTML += `<option value="${i}">${v.naam} (max. ${v.max_snelheid} km/u)</option>`);
+            } catch (e) {
+                sel.innerHTML = '<option>Fout: check Supabase URL, Key of leesrechten</option>';
+            }
         }
 
         function toonResultaat() {
