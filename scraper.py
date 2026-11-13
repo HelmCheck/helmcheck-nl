@@ -13,16 +13,22 @@ bronnen = [
 
 for bron, doel, basis, patroon in bronnen:
     api_url = f"https://api.crawlbase.com?{urllib.parse.urlencode({'token': TOKEN, 'url': doel})}"
-    html = urllib.request.urlopen(urllib.request.Request(api_url, headers={"User-Agent": "Mozilla/5.0"}), timeout=30).read().decode("utf-8", errors="ignore")
-    gevonden = list(dict.fromkeys(re.findall(patroon, html)))
-    print(f"{bron}: {len(gevonden)} unieke links gevonden")
+    try:
+        html = urllib.request.urlopen(urllib.request.Request(api_url, headers={"User-Agent": "Mozilla/5.0"}), timeout=120).read().decode("utf-8", errors="ignore")
+    except Exception as e:
+        print(f"Fout bij {bron}, we gaan door:", e)
+        continue
 
-    for pad in gevonden[:8]:
+    gevonden = list(dict.fromkeys(re.findall(patroon, html)))
+    for pad in gevonden[:12]:
         if not any(w in pad.lower() for w in trefwoorden):
             continue
         slug = pad.rstrip("/").split("/")[-1]
         titel = re.sub(r'^\d+-', '', slug).replace("-", " ").capitalize()
-        payload = json.dumps({"titel": titel, "url": basis + pad, "bron": bron}).encode()
+        datum_match = re.search(r'/(\d{4})/(\d{2})/(\d{2})/', pad)
+        datum = f"{datum_match.group(1)}-{datum_match.group(2)}-{datum_match.group(3)}" if datum_match else "2026-10-01"
+
+        payload = json.dumps({"titel": titel, "url": basis + pad, "bron": bron, "datum": datum}).encode()
         req = urllib.request.Request(f"{SB_URL}/rest/v1/nieuws", data=payload, method="POST")
         req.add_header("apikey", SB_KEY)
         req.add_header("Authorization", f"Bearer {SB_KEY}")
@@ -30,6 +36,6 @@ for bron, doel, basis, patroon in bronnen:
         req.add_header("Prefer", "resolution=ignore-duplicates")
         try:
             urllib.request.urlopen(req)
-            print("Opgeslagen:", titel[:50])
+            print(f"Opgeslagen ({bron}): {titel[:45]}")
         except Exception:
             pass
