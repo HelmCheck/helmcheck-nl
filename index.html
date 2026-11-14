@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helmcheck.nl – Onafhankelijke helmplicht check</title>
+    <title>Helmcheck.nl – Onafhankelijke helmplicht-check</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,100 +22,130 @@
                 <nav class="menu">
                     <a href="#check">Helmcheck</a>
                     <a href="#nieuws">Laatste nieuws</a>
-                    <a href="#wetgeving">Wetgeving & Boetes</a>
+                    <a href="#wetgeving">Wetgeving &amp; Boetes</a>
                     <a href="helmen.html">Aanbevolen helmen</a>
                 </nav>
             </div>
-            <span class="badge">✓ Richtlijnen 2026</span>
+            <span class="badge">✓ Richtlijnen 2026 / 2027</span>
         </div>
     </header>
     <section class="hero">
         <h1>Moet jij een helm op jouw e-bike of fatbike?</h1>
-        <p>Doe de onafhankelijke check en zie direct de huidige wetgeving, boeterisico's en aankomende regels.</p>
+        <p>Doe de onafhankelijke check en zie direct de huidige wetgeving, boeterisico's en de nieuwe regels vanaf 1 september 2027.</p>
     </section>
     <main id="check" class="main-wrap">
         <div class="card">
-            <div class="row form-group">
-                <div>
-                    <label>1. Welk type voertuig heb je?</label>
-                    <select id="typeSelect">
-                        <option value="ebike">Standaard E-bike (elektrische fiets)</option>
-                        <option value="fatbike">Fatbike (brede banden)</option>
-                        <option value="speedpedelec">Speed Pedelec (geel kenteken)</option>
-                        <option value="estep">Elektrische Step</option>
-                    </select>
+            <div id="startCheckBox" style="text-align:center; padding:12px 0;">
+                <h2 class="sec-title" style="margin-bottom:8px;">Controleer direct jouw situatie</h2>
+                <p style="font-size:15px; color:#475569; margin-bottom:20px;">Beantwoord 5 korte vragen en ontdek of jij nu of straks verplicht een helm moet dragen.</p>
+                <button class="btn" onclick="openCheck()">Doe de check! →</button>
+            </div>
+            <div id="vragenContainer" style="display:none;">
+                <div class="row form-group">
+                    <div>
+                        <label for="typeSelect">1. Welk type voertuig gebruik je?</label>
+                        <select id="typeSelect">
+                            <option value="ebike">Standaard e-bike (elektrische fiets)</option>
+                            <option value="fatbike">Fatbike (brede banden)</option>
+                            <option value="bakfiets">Elektrische bakfiets (regulier)</option>
+                            <option value="cargobike">Zware elektrische bakfiets (cargobike)</option>
+                            <option value="estep">Elektrische step (e-step)</option>
+                            <option value="segway">Segway of ander licht elektrisch voertuig</option>
+                            <option value="speedpedelec">Speedpedelec (geel kenteken tot 45 km/u)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="rolSelect">2. Ben je bestuurder of passagier?</label>
+                        <select id="rolSelect">
+                            <option value="bestuurder">Bestuurder</option>
+                            <option value="passagier">Passagier (bijv. achterop of in de bakfiets)</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label>2. Wat is de leeftijd van de bestuurder?</label>
-                    <select id="leeftijdSelect">
-                        <option value="18plus">18 jaar of ouder</option>
-                        <option value="onder18">Jonger dan 18 jaar</option>
-                    </select>
+                                <div class="row form-group">
+                    <div>
+                        <label for="leeftijdSelect">3. Wat is jouw leeftijd (van degene op het voertuig)?</label>
+                        <select id="leeftijdSelect">
+                            <option value="18plus">18 jaar of ouder</option>
+                            <option value="onder18">Jonger dan 18 jaar</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="gasSelect">4. Zit er een gashendel op het voertuig?</label>
+                        <select id="gasSelect">
+                            <option value="nee">Nee (alleen trapondersteuning)</option>
+                            <option value="6km">Alleen loophulp (tot 6 km/u)</option>
+                            <option value="ja">Ja (rijdt zelfstandig &gt; 6 km/u)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div>
+                        <label for="snelheidSelect">5. Wat is de maximumsnelheid?</label>
+                        <select id="snelheidSelect">
+                            <option value="25">Tot 25 km/u (standaard)</option>
+                            <option value="45">25 tot 45 km/u (opgevoerd of speedpedelec)</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; align-items:flex-end;">
+                        <button class="btn" style="width:100%;" onclick="checkHelm()">Bekijk direct mijn uitslag →</button>
+                    </div>
+                </div>
+                <div id="resBox" class="result">
+                    <h2 id="resTitel" style="margin-bottom:8px;"></h2>
+                    <p id="resTekst"></p>
                 </div>
             </div>
-            <div class="row form-group">
-                <div>
-                    <label>3. Zit er een gashendel op?</label>
-                    <select id="gasSelect">
-                        <option value="nee">Nee (alleen trapondersteuning)</option>
-                        <option value="6km">Alleen loophulp (tot 6 km/u)</option>
-                        <option value="ja">Ja (rijdt zelfstandig > 6 km/u)</option>
-                    </select>
-                </div>
-                <div>
-                    <label>4. Maximumsnelheid?</label>
-                    <select id="snelheidSelect">
-                        <option value="25">Tot 25 km/u (standaard)</option>
-                        <option value="45">25 tot 45 km/u (opgevoerd / speed)</option>
-                    </select>
-                </div>
-            </div>
-            <button class="btn" onclick="checkHelm()">Bekijk direct mijn uitslag →</button>
-            <div id="resBox" class="result">
-                <h2 id="resTitel" style="margin-bottom:8px;"></h2>
-                <p id="resTekst"></p>
-            </div>
-        </div>
         </div>
         <div id="nieuws" class="card">
             <h2 class="sec-title">Laatste nieuws over de helmplicht</h2>
-            <div id="nieuwsLijst">
-                <p style="font-size:14px;color:#64748b;">Nieuwsberichten ophalen...</p>
-            </div>
+            <div id="nieuwsLijst"><p style="font-size:14px;color:#64748b;">Nieuwsberichten ophalen...</p></div>
         </div>
         <div id="wetgeving" class="card">
-            <h2 class="sec-title">Wetgeving & Keurmerken uitgelegd</h2>
-            <p style="font-size:14px;color:#475569;">Een gewone fietshelm heeft het <strong>EN 1078</strong> keurmerk. Voor snelle elektrische fietsen tot 45 km/u (speed pedelecs) is het zwaardere <strong>NTA 8776</strong> keurmerk wettelijk verplicht. Rijden zonder verplichte helm levert een boete op van € 110,-.</p>
+            <h2 class="sec-title">Wetgeving &amp; Keurmerken uitgelegd</h2>
+            <p style="font-size:14px;color:#475569;">Een gewone fietshelm heeft het <strong>EN 1078-keurmerk</strong>. Voor snelle elektrische fietsen tot 45 km/u (speedpedelecs) en opgevoerde fietsen is het zwaardere <strong>NTA 8776-keurmerk</strong> wettelijk verplicht. Rijden zonder verplichte helm levert een boete op van € 110,- (exclusief administratiekosten). Vanaf <strong>1 september 2027</strong> wil het kabinet een helmplicht invoeren voor iedereen onder de 18 jaar op e-bikes, fatbikes en lichte elektrische voertuigen.</p>
         </div>
     </main>
     <footer>&copy; 2026 Helmcheck.nl – Onafhankelijk informatieplatform voor elektrische tweewielers.</footer>
     <script>
+        function openCheck() {
+            document.getElementById('startCheckBox').style.display = 'none';
+            document.getElementById('vragenContainer').style.display = 'block';
+        }
         function checkHelm() {
             const t = document.getElementById('typeSelect').value;
+            const r = document.getElementById('rolSelect').value;
             const l = document.getElementById('leeftijdSelect').value;
             const g = document.getElementById('gasSelect').value;
             const s = document.getElementById('snelheidSelect').value;
             const box = document.getElementById('resBox');
+            const titel = document.getElementById('resTitel');
+            const tekst = document.getElementById('resTekst');
+
             if (g === 'ja' || s === '45' || t === 'speedpedelec') {
                 box.className = 'result res-rood';
-                document.getElementById('resTitel').innerText = 'Helm is nu al wettelijk verplicht';
-                document.getElementById('resTekst').innerText = 'Door een gashendel (>6 km/u) of snelheid boven 25 km/u valt dit voertuig onder de regels van een bromfiets. Een goedgekeurde helm (NTA-8776) is verplicht.';
+                titel.innerText = 'Helm is nu al wettelijk verplicht';
+                tekst.innerText = 'Door een gashendel (> 6 km/u) of een snelheid boven 25 km/u valt dit voertuig onder de regels voor een bromfiets of speedpedelec. Een goedgekeurde bromfietshelm of speedpedelec-helm (NTA 8776) is verplicht voor zowel bestuurder als passagier. Boete: € 110,-.';
+            } else if (t === 'cargobike' && r === 'bestuurder' && l === 'onder18') {
+                box.className = 'result res-rood';
+                titel.innerText = 'Let op: minimumleeftijd gaat naar 18 jaar (én helmplicht in 2027)';
+                tekst.innerText = 'Het kabinet verhoogt de minimumleeftijd voor bestuurders van zware elektrische bakfietsen (cargobikes) van 16 naar 18 jaar. Daarnaast geldt vanaf 1 september 2027 een helmplicht voor iedereen onder de 18 jaar op lichte elektrische voertuigen.';
             } else if (l === 'onder18') {
                 box.className = 'result res-oranje';
-                document.getElementById('resTitel').innerText = 'Nu nog niet, maar vanaf 2027 waarschijnlijk verplicht';
-                document.getElementById('resTekst').innerText = 'Het kabinet bereidt een wettelijke helmplicht voor die in 2027 ingaat voor alle bestuurders tot 18 jaar op een fatbike, e-bike of e-step.';
+                titel.innerText = 'Nu nog niet verplicht, wel vanaf 1 september 2027';
+                const rolTekst = (r === 'passagier')
+                    ? 'Ook als passagier (bijvoorbeeld achterop een e-bike of in een reguliere elektrische bakfiets) ben je straks verplicht een helm te dragen.'
+                    : 'Dit geldt voor bestuurders van e-bikes, fatbikes, elektrische bakfietsen, e-steps en Segways.';
+                tekst.innerText = 'Op dit moment (2026) is een helm op dit voertuig tot 25 km/u nog niet verplicht. De ministerraad heeft echter ingestemd met een wettelijke helmplicht per 1 september 2027 voor iedereen onder de 18 jaar. ' + rolTekst;
             } else {
                 box.className = 'result res-groen';
-                document.getElementById('resTitel').innerText = 'Geen wettelijke helmplicht';
-                document.getElementById('resTekst').innerText = 'Voor bestuurders van 18 jaar en ouder op een standaard e-bike of fatbike tot 25 km/u (zonder gashendel) geldt geen helmplicht en zijn er ook geen plannen voor.';
+                titel.innerText = 'Geen wettelijke helmplicht (ook niet in 2027)';
+                tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. De nieuwe regels voor 1 september 2027 gelden alleen voor jongeren tot 18 jaar.';
             }
             box.style.display = 'block';
         }
-    </script>
-        <script>
-        const SB_URL = 'https://abotommlvkzppelwmulh.supabase.co';
+        const SB_URL = 'https://supabase.co';
         const SB_ANON = 'sb_publishable_KeNt2TDS7QKLGoELo1XeIA_07PO6BOn';
-
         async function laadNieuws() {
             const box = document.getElementById('nieuwsLijst');
             try {
@@ -124,11 +154,7 @@
                 });
                 const items = await res.json();
                 if (!items.length) { box.innerHTML = '<p style="font-size:14px;">Nog geen nieuwe berichten.</p>'; return; }
-                box.innerHTML = items.map(n => `
-                    <div class="news-item">
-                        <span class="news-date">${n.bron} • ${n.datum}</span>
-                        <h3 style="font-size:16px;margin:4px 0;"><a href="${n.url}" target="_blank" style="color:#0f172a;text-decoration:none;">${n.titel} ↗</a></h3>
-                    </div>`).join('');
+                box.innerHTML = items.map(n => `<div class="news-item"><span class="news-date">${n.bron} • ${n.datum}</span><h3 style="font-size:16px;margin:4px 0;"><a href="${n.url}" target="_blank" style="color:#0f172a;text-decoration:none;">${n.titel} ↗</a></h3></div>`).join('');
             } catch (e) { box.innerHTML = '<p style="font-size:14px;">Kan nieuws momenteel niet laden.</p>'; }
         }
         laadNieuws();
