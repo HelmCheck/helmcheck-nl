@@ -7,7 +7,7 @@ header { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 14px 24
 .nav { max-width: 1020px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
 .nav-left { display: flex; align-items: center; gap: 36px; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-img { height: 40px; width: auto; border-radius: 8px; display: block; }
+.logo-img { height: 45px; width: auto; border-radius: 8px; display: block; }
 .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .logo-text { font-size: 21px; font-weight: 800; color: #0f172a; letter-spacing: -0.04em; }
 .logo-text span { color: #2563eb; }
