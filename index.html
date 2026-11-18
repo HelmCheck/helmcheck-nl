@@ -131,6 +131,9 @@
                 <div id="resBox" class="result">
                     <h2 id="resTitel" style="margin-bottom:8px;"></h2>
                     <p id="resTekst"></p>
+                    <a id="waShareBtn" href="#" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:10px 16px; background-color:#25D366; color:#ffffff; font-weight:700; font-size:14px; border-radius:10px; text-decoration:none;">
+                        Deel deze uitslag via WhatsApp →
+                    </a>
                 </div>
             </div>
         </div>
@@ -180,6 +183,10 @@
                 titel.innerText = 'Geen wettelijke helmplicht (ook niet in 2027)';
                 tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. De nieuwe regels voor 1 september 2027 gelden alleen voor jongeren tot 18 jaar.';
             }
+
+            const shareText = `Helmcheck.nl uitslag: "${titel.innerText}" – Check zelf ook of jij in 2026 of 2027 een helm op moet: https://helmcheck.nl`;
+            document.getElementById('waShareBtn').href = `https://whatsapp.com{encodeURIComponent(shareText)}`;
+
             box.style.display = 'block';
         }
 
