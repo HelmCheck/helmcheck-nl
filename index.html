@@ -184,8 +184,13 @@
                 tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. De nieuwe regels voor 1 september 2027 gelden alleen voor jongeren tot 18 jaar.';
             }
 
+            const voertuigNaam = document.getElementById('typeSelect').options[document.getElementById('typeSelect').selectedIndex].text;
             const siteUrl = 'https://' + 'helmcheck.nl';
-            const shareText = 'Helmcheck.nl uitslag: "' + titel.innerText + '" – Check zelf ook of jij in 2026 of 2027 een helm op moet: ' + siteUrl;
+            const shareText = '🚲 *Helmplicht-check (2026 / 2027)*\n\n' +
+                'Ik heb net de check gedaan voor een *' + voertuigNaam + '*:\n' +
+                '👉 *' + titel.innerText + '*\n\n' +
+                'Moet jij (of je kind) straks verplicht een helm op? Check jouw situatie in 10 seconden:\n' +
+                siteUrl;
             const waBase = 'https://' + 'api.whatsapp.com' + '/send?text=';
             document.getElementById('waShareBtn').href = waBase + encodeURIComponent(shareText);
             
