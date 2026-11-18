@@ -167,6 +167,17 @@
             document.getElementById('startCheckBox').style.display = 'none';
             document.getElementById('vragenContainer').style.display = 'block';
         }
+        function toggleVragen() {
+            const t = document.getElementById('typeSelect').value;
+            const overig = document.getElementById('overigeVragen');
+            if (t === 'gewonefiets') {
+                overig.style.display = 'none';
+                checkHelm();
+            } else {
+                overig.style.display = 'block';
+                document.getElementById('resBox').style.display = 'none';
+            }
+        }
         function checkHelm() {
             const t = document.getElementById('typeSelect').value;
             const r = document.getElementById('rolSelect').value;
@@ -177,7 +188,11 @@
             const titel = document.getElementById('resTitel');
             const tekst = document.getElementById('resTekst');
 
-            if (g === 'ja' || s === '45' || t === 'speedpedelec') {
+            if (t === 'gewonefiets') {
+                box.className = 'result res-groen';
+                titel.innerText = 'Geen helmplicht (ook niet vanaf 1 september 2027)';
+                tekst.innerText = 'Op een gewone stadsfiets of niet-elektrische bakfiets (zonder trapondersteuning) is een helm op dit moment niet verplicht, en dat verandert ook niet op 1 september 2027. De nieuwe helmplicht voor jongeren onder de 18 jaar geldt alleen voor elektrische voertuigen.';
+            } else if (g === 'ja' || s === '45' || t === 'speedpedelec') {
                 box.className = 'result res-rood';
                 titel.innerText = 'Helm is nu al wettelijk verplicht';
                 tekst.innerText = 'Door een gashendel (> 6 km/u) of een snelheid boven 25 km/u valt dit voertuig onder de regels voor een bromfiets of speedpedelec. Een goedgekeurde bromfietshelm of speedpedelec-helm (NTA 8776) is verplicht voor zowel bestuurder als passagier. Boete: € 110,-.';
