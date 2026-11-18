@@ -78,53 +78,54 @@
                 <button class="btn" onclick="openCheck()">Doe de check! →</button>
             </div>
             <div id="vragenContainer" style="display:none;">
-                <div class="row form-group">
-                    <div>
-                        <label for="typeSelect">1. Welk type voertuig gebruik je?</label>
-                        <select id="typeSelect">
-                            <option value="ebike">Standaard e-bike (elektrische fiets)</option>
-                            <option value="fatbike">Fatbike (brede banden)</option>
-                            <option value="bakfiets">Elektrische bakfiets (regulier)</option>
-                            <option value="cargobike">Zware elektrische bakfiets (cargobike)</option>
-                            <option value="estep">Elektrische step (e-step)</option>
-                            <option value="segway">Segway of ander licht elektrisch voertuig</option>
-                            <option value="speedpedelec">Speedpedelec (geel kenteken tot 45 km/u)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="rolSelect">2. Ben je bestuurder of passagier?</label>
-                        <select id="rolSelect">
-                            <option value="bestuurder">Bestuurder</option>
-                            <option value="passagier">Passagier (bijv. achterop of in de bakfiets)</option>
-                        </select>
-                    </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label for="typeSelect">1. Welk type voertuig gebruik je?</label>
+                    <select id="typeSelect" onchange="toggleVragen()">
+                        <option value="ebike" selected>Standaard e-bike (elektrische fiets)</option>
+                        <option value="fatbike">Fatbike (brede banden)</option>
+                        <option value="bakfiets">Elektrische bakfiets (regulier)</option>
+                        <option value="cargobike">Zware elektrische bakfiets (cargobike)</option>
+                        <option value="estep">Elektrische step (e-step)</option>
+                        <option value="segway">Segway of ander licht elektrisch voertuig</option>
+                        <option value="speedpedelec">Speedpedelec (geel kenteken tot 45 km/u)</option>
+                        <option value="gewonefiets">Gewone stadsfiets of bakfiets (zonder trapondersteuning)</option>
+                    </select>
                 </div>
-                                <div class="row form-group">
-                    <div>
-                        <label for="leeftijdSelect">3. Wat is jouw leeftijd (van degene op het voertuig)?</label>
-                        <select id="leeftijdSelect">
-                            <option value="18plus">18 jaar of ouder</option>
-                            <option value="onder18">Jonger dan 18 jaar</option>
-                        </select>
+                <div id="overigeVragen">
+                    <div class="row form-group">
+                        <div>
+                            <label for="rolSelect">2. Ben je bestuurder of passagier?</label>
+                            <select id="rolSelect">
+                                <option value="bestuurder">Bestuurder</option>
+                                <option value="passagier">Passagier (bijv. achterop of in de bakfiets)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="leeftijdSelect">3. Wat is jouw leeftijd (van degene op het voertuig)?</label>
+                            <select id="leeftijdSelect">
+                                <option value="18plus">18 jaar of ouder</option>
+                                <option value="onder18">Jonger dan 18 jaar</option>
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <label for="gasSelect">4. Zit er een gashendel op het voertuig?</label>
-                        <select id="gasSelect">
-                            <option value="nee">Nee (alleen trapondersteuning)</option>
-                            <option value="6km">Alleen loophulp (tot 6 km/u)</option>
-                            <option value="ja">Ja (rijdt zelfstandig &gt; 6 km/u)</option>
-                        </select>
+                    <div class="row form-group">
+                        <div>
+                            <label for="gasSelect">4. Zit er een gashendel op het voertuig?</label>
+                            <select id="gasSelect">
+                                <option value="nee">Nee (alleen trapondersteuning)</option>
+                                <option value="6km">Alleen loophulp (tot 6 km/u)</option>
+                                <option value="ja">Ja (rijdt zelfstandig &gt; 6 km/u)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="snelheidSelect">5. Wat is de maximumsnelheid?</label>
+                            <select id="snelheidSelect">
+                                <option value="25">Tot 25 km/u (standaard)</option>
+                                <option value="45">25 tot 45 km/u (opgevoerd of speedpedelec)</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div>
-                        <label for="snelheidSelect">5. Wat is de maximumsnelheid?</label>
-                        <select id="snelheidSelect">
-                            <option value="25">Tot 25 km/u (standaard)</option>
-                            <option value="45">25 tot 45 km/u (opgevoerd of speedpedelec)</option>
-                        </select>
-                    </div>
-                    <div style="display:flex; align-items:flex-end;">
+                    <div style="margin-top: 8px;">
                         <button class="btn" onclick="checkHelm()">Bekijk direct mijn uitslag →</button>
                     </div>
                 </div>
