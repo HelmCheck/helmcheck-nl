@@ -43,7 +43,13 @@
     <priority>0.8</priority>
   </url>
           <url>
-    <loc>https://helmcheck.nl//info/fatbike-gashendel-opvoeren-boetes.html</loc>
+    <loc>https://helmcheck.nl/info/fatbike-gashendel-opvoeren-boetes.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+            <url>
+    <loc>https://helmcheck.nl/info/zware-bakfiets-cargobike-leeftijd-helmplicht.html</loc>
     <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
