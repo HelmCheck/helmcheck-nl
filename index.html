@@ -207,11 +207,11 @@
                 const rolTekst = (r === 'passagier')
                     ? 'Ook als passagier (bijvoorbeeld achterop een e-bike of in een reguliere elektrische bakfiets) ben je straks verplicht een helm te dragen.'
                     : 'Dit geldt voor bestuurders van e-bikes, fatbikes, elektrische bakfietsen, e-steps en Segways.';
-                tekst.innerText = 'Op dit moment (2026) is een helm op dit voertuig tot 25 km/u nog niet verplicht. De ministerraad heeft echter ingestemd met een wettelijke helmplicht per 1 september 2027 voor iedereen onder de 18 jaar. ' + rolTekst;
+                tekst.innerText = 'Op dit moment (2026) is een helm op dit voertuig tot 25 km/u nog niet verplicht. Het kabinet heeft echter een wetsvoorstel naar de Tweede Kamer gestuurd om per 1 september 2027 een helmplicht in te voeren voor iedereen onder de 18 jaar.. ' + rolTekst;
             } else {
                 box.className = 'result res-groen';
                 titel.innerText = 'Geen wettelijke helmplicht (ook niet in 2027)';
-                tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. De nieuwe regels voor 1 september 2027 gelden alleen voor jongeren tot 18 jaar.';
+                tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. Het wetsvoorstel voor 1 september 2027 richt zich alleen op jongeren tot 18 jaar..';
             }
 
             const voertuigNaam = document.getElementById('typeSelect').options[document.getElementById('typeSelect').selectedIndex].text;
