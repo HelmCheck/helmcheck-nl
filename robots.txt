@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://helmcheck.nl
+Sitemap: https://helmcheck.nl/sitemap.xml
