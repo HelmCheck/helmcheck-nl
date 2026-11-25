@@ -38,7 +38,7 @@ const CookieConsent = {
         banner.style.cssText = 'position:fixed;bottom:16px;left:16px;right:16px;max-width:460px;background:#0f172a;color:#f8fafc;padding:18px 20px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.25);z-index:9999;font-family:inherit;font-size:14px;line-height:1.5;';
         banner.innerHTML = `
             <div style="font-weight:800;font-size:16px;margin-bottom:6px;">Wij respecteren jouw privacy</div>
-            <p style="color:#cbd5e1;margin-bottom:14px;font-size:13px;">Helmcheck.nl gebruikt noodzakelijke cookies en – alleen met jouw toestemming – marketingcookies voor affiliate-productlinks. Lees meer in onze <a href="privacy-en-disclaimer.html" style="color:#38bdf8;text-decoration:underline;">Privacy &amp; Disclaimer</a>.</p>
+    <p style="color:#cbd5e1;margin-bottom:14px;font-size:13px;">Helmcheck.nl gebruikt noodzakelijke cookies en – alleen met jouw toestemming – anonieme statistieken om de keuzehulp te verbeteren. Lees meer in onze <a href="/privacy-en-disclaimer.html" style="color:#38bdf8;text-decoration:underline;">Privacy &amp; Disclaimer</a>.</p>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 <button id="hc-accept-all" style="flex:1;background:#0284c7;color:#fff;border:none;padding:9px 12px;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;">Alles accepteren</button>
                 <button id="hc-accept-nec" style="flex:1;background:#334155;color:#fff;border:none;padding:9px 12px;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;">Alleen noodzakelijk</button>
@@ -75,10 +75,10 @@ const CookieConsent = {
                 </div>
                 <div style="padding:10px 0 16px;">
                     <label style="display:flex;justify-content:space-between;align-items:center;font-weight:700;cursor:pointer;">
-                        <span>Marketing &amp; Affiliate cookies</span>
+                        <span>Overige / Externe media cookies</span>
                         <input type="checkbox" id="hc-chk-mkt" ${saved.marketing ? 'checked' : ''} style="width:18px;height:18px;">
                     </label>
-                    <p style="font-size:12px;color:#64748b;margin-top:4px;">Voor aanbevolen helmen via webshops zoals Bol.com of Coolblue (zonder extra kosten voor jou).</p>
+                    <p style="font-size:12px;color:#64748b;margin-top:4px;">Voor eventuele ingesloten video's of externe inhoud (op dit moment niet actief op Helmcheck.nl).</p>
                 </div>
                 <div style="display:flex;gap:8px;">
                     <button id="hc-save-prefs" style="flex:1;background:#0284c7;color:#fff;border:none;padding:10px;border-radius:8px;font-weight:700;cursor:pointer;">Opslaan</button>
