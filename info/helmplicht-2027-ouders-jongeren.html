@@ -165,5 +165,23 @@
         <a href="#" onclick="CookieConsent.showPreferences(); return false;" style="color: inherit; text-decoration: underline;">Cookie-instellingen</a>
     </footer>
     <script src="/cookies.js"></script>
+    <script>
+(function() {
+    const hoofd = document.querySelector('main');
+    if (!hoofd) return;
+    const ro = 'https://' + 'www.rijksoverheid.nl';
+    const url1 = ro + '/actueel/nieuws/2026/11/13/helmplicht-voor-jongeren-op-fatbikes-en-andere-e-bikes-gaat-naar-tweede-kamer';
+    const url2 = ro + '/documenten/vraag-en-antwoord/fiets/welke-regels-gelden-voor-mijn-elektrische-fiets-e-bike';
+    const box = document.createElement('div');
+    box.className = 'card';
+    box.style.cssText = 'background:#f8fafc;border:1px solid #e2e8f0;';
+    box.innerHTML = '<h2 class="sec-title" style="font-size:17px;margin-bottom:8px;">Officiële bronnen bij dit artikel</h2>' +
+        '<ul class="info-list" style="margin-bottom:0;">' +
+        '<li><a href="' + url1 + '" target="_blank" rel="noopener" style="color:#0284c7;font-weight:600;">Rijksoverheid: Wetsvoorstel helmplicht jongeren naar Tweede Kamer (13 november 2026) ↗</a></li>' +
+        '<li><a href="' + url2 + '" target="_blank" rel="noopener" style="color:#0284c7;font-weight:600;">Rijksoverheid: Huidige verkeersregels voor e-bikes en fatbikes ↗</a></li>' +
+        '</ul>';
+    hoofd.appendChild(box);
+})();
+</script>
 </body>
 </html>
