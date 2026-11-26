@@ -298,6 +298,7 @@
 
         async function laadNieuws() {
             const box = document.getElementById('nieuwsLijst');
+            const veiligeTekst = (str) => String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
             try {
                 const res = await fetch(`${SB_URL}/rest/v1/nieuws?select=*&order=datum.desc&limit=10`, {
                     headers: { 'apikey': SB_ANON, 'Authorization': `Bearer ${SB_ANON}` }
@@ -313,11 +314,13 @@
                     return (b.datum || '').localeCompare(a.datum || '');
                 });
 
-                box.innerHTML = items.slice(0, 5).map(n => {
-                    const isRijk = (n.bron || '').toLowerCase().includes('rijksoverheid');
-                    const metaTekst = isRijk ? n.bron : `${n.bron} • ${n.datum}`;
-                    return `<div class="news-item"><span class="news-date">${metaTekst}</span><h3 style="font-size:16px;margin:4px 0;"><a href="${n.url}" target="_blank" rel="noopener" style="color:#0f172a;text-decoration:none;">${n.titel} ↗</a></h3></div>`;
-                }).join('');
+                box.innerHTML = items.slice(0, 5)
+                    .filter(n => /^https:\/\//i.test(n.url || ''))
+                    .map(n => {
+                        const isRijk = (n.bron || '').toLowerCase().includes('rijksoverheid');
+                        const metaTekst = isRijk ? veiligeTekst(n.bron) : `${veiligeTekst(n.bron)} • ${veiligeTekst(n.datum)}`;
+                        return `<div class="news-item"><span class="news-date">${metaTekst}</span><h3 style="font-size:16px;margin:4px 0;"><a href="${veiligeTekst(n.url)}" target="_blank" rel="noopener noreferrer" style="color:#0f172a;text-decoration:none;">${veiligeTekst(n.titel)} ↗</a></h3></div>`;
+                    }).join('');
             } catch (e) {}
         }
 
