@@ -1,63 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://sitemaps.org">
   <url>
-    <loc>https://helmcheck.nl</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>daily</changefreq>
+    <loc>https://helmcheck.nl/</loc>
+    <lastmod>2026-11-26</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://helmcheck.nl/wetgeving.html</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://helmcheck.nl/helmen.html</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.9</priority>
   </url>
-    <url>
+  <url>
     <loc>https://helmcheck.nl/info/index.html</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.9</priority>
   </url>
-    <url>
+  <url>
     <loc>https://helmcheck.nl/info/helmplicht-2027-ouders-jongeren.html</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
-  </url>  
-      <url>
+  </url>
+  <url>
     <loc>https://helmcheck.nl/info/helmplicht-bakfiets-passagiers-2027.html</loc>
-    <lastmod>2026-11-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
   </url>
-        <url>
+  <url>
     <loc>https://helmcheck.nl/info/helmplicht-estep-regels-nederland.html</loc>
-    <lastmod>2026-11-23</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
   </url>
-          <url>
+  <url>
     <loc>https://helmcheck.nl/info/fatbike-gashendel-opvoeren-boetes.html</loc>
-    <lastmod>2026-11-24</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
   </url>
-            <url>
+  <url>
     <loc>https://helmcheck.nl/info/zware-bakfiets-cargobike-leeftijd-helmplicht.html</loc>
-    <lastmod>2026-11-24</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-11-25</lastmod>
     <priority>0.8</priority>
   </url>
-              <url>
-    <loc>https://helmcheck.nl/info/info/verzekering-aansprakelijkheid-zonder-helm.html</loc>
-    <lastmod>2026-11-24</lastmod>
-    <changefreq>monthly</changefreq>
+  <url>
+    <loc>https://helmcheck.nl/info/verzekering-aansprakelijkheid-zonder-helm.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://helmcheck.nl/info/muts-hoofddoek-lang-haar-fietshelm.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://helmcheck.nl/info/tiener-weigert-helm-fatbike-tips.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://helmcheck.nl/info/wat-is-mips-fietshelm-nodig.html</loc>
+    <lastmod>2026-11-26</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
