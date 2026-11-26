@@ -209,7 +209,7 @@
         function toggleVragen() {
             const t = document.getElementById('typeSelect').value;
             const overig = document.getElementById('overigeVragen');
-            if (t === 'gewonefiets') {
+            if (t === 'gewonefiets' || t === 'speedpedelec') {
                 overig.style.display = 'none';
                 checkHelm();
             } else {
@@ -229,30 +229,37 @@
 
             if (t === 'gewonefiets') {
                 box.className = 'result res-groen';
-                titel.innerText = 'Geen helmplicht (ook niet vanaf 1 september 2027)';
-                tekst.innerText = 'Op een gewone stadsfiets of niet-elektrische bakfiets (zonder trapondersteuning) is een helm op dit moment niet verplicht, en dat verandert ook niet op 1 september 2027. De nieuwe helmplicht voor jongeren onder de 18 jaar geldt alleen voor elektrische voertuigen.';
-            } else if (g === 'ja' || s === '45' || t === 'speedpedelec') {
+                titel.innerText = 'Geen helmplicht (ook niet in het wetsvoorstel voor 2027)';
+                tekst.innerText = 'Op een gewone stadsfiets of niet-elektrische bakfiets (zonder trapondersteuning) is een helm op dit moment niet verplicht. Ook in het wetsvoorstel voor de beoogde ingangsdatum van 1 september 2027 blijft een gewone fiets zonder motor vrijgesteld.';
+            } else if (t === 'speedpedelec') {
                 box.className = 'result res-rood';
-                titel.innerText = 'Helm is nu al wettelijk verplicht';
-                tekst.innerText = 'Door een gashendel (> 6 km/u) of een snelheid boven 25 km/u valt dit voertuig onder de regels voor een bromfiets of speedpedelec. Een goedgekeurde bromfietshelm of speedpedelec-helm (NTA 8776) is verplicht voor zowel bestuurder als passagier. Boete: € 130,-.';
+                titel.innerText = 'Helm is nu al wettelijk verplicht (NTA 8776 of bromfietshelm)';
+                tekst.innerText = 'Op een speedpedelec (tot 45 km/u, geel kenteken) geldt nu al een wettelijke helmplicht voor zowel de bestuurder als de passagier. Je moet een goedgekeurde speedpedelec-helm (keurmerk NTA 8776) of bromfietshelm (ECE 22.05 / 22.06) dragen. Boete zonder helm: € 130,-.';
+            } else if (g === 'ja' || s === '45') {
+                box.className = 'result res-rood';
+                titel.innerText = 'Helm is nu al verplicht (voertuig valt onder bromfietsregels)';
+                const bakWaarschuwing = (t === 'bakfiets' || t === 'cargobike')
+                    ? ' Let op: een opgevoerde bakfiets of bakfiets met zelfstandige gashendel (> 6 km/u) is niet toegestaan op de openbare weg zonder RDW-goedkeuring, kenteken en bromfietsverzekering.'
+                    : '';
+                tekst.innerText = 'Door een zelfstandige gashendel (> 6 km/u) of trapondersteuning boven 25 km/u ziet de wet dit voertuig nu al als een ongeregistreerde bromfiets. Een goedgekeurde bromfietshelm of speedpedelec-helm (NTA 8776) is verplicht (boete: € 130,-) en je riskeert inbeslagname én het vervallen van je verzekering.' + bakWaarschuwing;
             } else if (t === 'cargobike' && r === 'bestuurder' && l === 'onder18') {
                 box.className = 'result res-rood';
-                titel.innerText = 'Let op: minimumleeftijd gaat naar 18 jaar (én helmplicht in 2027)';
-                tekst.innerText = 'Het kabinet verhoogt de minimumleeftijd voor bestuurders van zware elektrische bakfietsen (cargobikes) van 16 naar 18 jaar. Daarnaast geldt vanaf 1 september 2027 een helmplicht voor iedereen onder de 18 jaar op lichte elektrische voertuigen.';
+                titel.innerText = 'Let op: minimumleeftijd gaat naar 18 jaar (wetsvoorstel 2027)';
+                tekst.innerText = 'In het wetsvoorstel van het kabinet (beoogd per 1 september 2027) gaat de minimumleeftijd voor bestuurders van zware elektrische bakfietsen (cargobikes) omhoog van 16 naar 18 jaar. Daarnaast geldt in dat voorstel een helmplicht voor iedereen onder de 18 jaar op lichte elektrische voertuigen.';
             } else if (l === 'onder18') {
                 box.className = 'result res-oranje';
-                titel.innerText = 'Nu nog niet verplicht, wel vanaf 1 september 2027';
+                titel.innerText = 'Nu nog niet verplicht, wel in het wetsvoorstel voor 2027';
                 const uitzonderingTekst = (t === 'bakfiets' && r === 'passagier')
                     ? ' Let op: voor jonge baby’s in een goedgekeurde babyschaal en kinderen in een vrijgestelde BSO-bus geldt volgens het voorstel een uitzondering.'
                     : '';
                 const rolTekst = (r === 'passagier')
-                    ? 'Ook als passagier (bijvoorbeeld achterop een e-bike of in een reguliere elektrische bakfiets) ben je straks verplicht een helm te dragen.' + uitzonderingTekst
-                    : 'Dit geldt voor bestuurders van e-bikes, fatbikes, elektrische bakfietsen, e-steps en Segways.';
-                tekst.innerText = 'Op dit moment (2026) is een helm op dit voertuig tot 25 km/u nog niet verplicht. Het kabinet heeft echter een wetsvoorstel naar de Tweede Kamer gestuurd om per 1 september 2027 een helmplicht in te voeren voor iedereen onder de 18 jaar. ' + rolTekst;
+                    ? 'Ook als passagier (bijvoorbeeld achterop een e-bike of in een reguliere elektrische bakfiets) word je in het voorstel verplicht een helm (EN 1078) te dragen.' + uitzonderingTekst
+                    : 'Dit geldt in het voorstel voor bestuurders van e-bikes, fatbikes, elektrische bakfietsen, e-steps en Segways.';
+                tekst.innerText = 'Op dit moment (2026) is een helm op dit voertuig tot 25 km/u nog niet verplicht. Het kabinet heeft wel een wetsvoorstel naar de Tweede Kamer gestuurd met als beoogde ingangsdatum 1 september 2027 voor iedereen onder de 18 jaar. ' + rolTekst;
             } else {
                 box.className = 'result res-groen';
-                titel.innerText = 'Geen wettelijke helmplicht (ook niet in 2027)';
-                tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. Het wetsvoorstel voor 1 september 2027 richt zich alleen op jongeren tot 18 jaar.';
+                titel.innerText = 'Geen wettelijke helmplicht (ook niet in het voorstel voor 2027)';
+                tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. Het wetsvoorstel voor de beoogde datum van 1 september 2027 richt zich alleen op jongeren tot 18 jaar.';
             }
 
             const voertuigNaam = document.getElementById('typeSelect').options[document.getElementById('typeSelect').selectedIndex].text;
@@ -263,7 +270,7 @@
                 '👉 *' + titel.innerText + '*\n\n' +
                 'Bekijk deze uitslag of doe zelf de check:\n' +
                 shareUrl;
-            const waBase = 'https://' + 'api.whatsapp.com' + '/send?text=';
+            const waBase = 'https://' + '://whatsapp.com' + '/send?text=';
             document.getElementById('waShareBtn').href = waBase + encodeURIComponent(shareText);
             
             box.style.display = 'block';
@@ -281,14 +288,14 @@
                 if (p.has('g')) document.getElementById('gasSelect').value = p.get('g');
                 if (p.has('s')) document.getElementById('snelheidSelect').value = p.get('s');
                 openCheck();
-                if (typeEl.value === 'gewonefiets') {
+                if (typeEl.value === 'gewonefiets' || typeEl.value === 'speedpedelec') {
                     document.getElementById('overigeVragen').style.display = 'none';
                 }
                 checkHelm();
             }
         }
 
-        const SB_URL = 'https://abotommlvkzppelwmulh.supabase.co';
+        const SB_URL = 'https://supabase.co';
         const SB_ANON = 'sb_publishable_KeNt2TDS7QKLGoELo1XeIA_07PO6BOn';
 
         async function laadNieuws() {
