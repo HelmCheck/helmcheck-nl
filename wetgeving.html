@@ -70,14 +70,27 @@
             </ul>
             <a href="index.html" class="btn" style="margin-top:8px;">Doe direct de Helmcheck →</a>
         </div>
-                <div class="card" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-            <h2 class="sec-title" style="font-size: 18px; margin-bottom: 10px;">Officiële bronnen &amp; documenten</h2>
-            <ul class="info-list" style="margin-bottom: 0;">
-                <li><a href="https://www.rijksoverheid.nl/actueel/nieuws/2026/11/13/helmplicht-voor-jongeren-op-fatbikes-en-andere-e-bikes-gaat-naar-tweede-kamer" target="_blank" rel="noopener" style="color: #0284c7; font-weight: 600;">Rijksoverheid: Wetsvoorstel helmplicht jongeren op fatbikes en e-bikes (13 november 2026) ↗</a></li>
-                <li><a href="https://www.rijksoverheid.nl/documenten/vraag-en-antwoord/fiets/welke-regels-gelden-voor-mijn-elektrische-fiets-e-bike" target="_blank" rel="noopener" style="color: #0284c7; font-weight: 600;">Rijksoverheid: Huidige regels voor elektrische fietsen en fatbikes ↗</a></li>
-                <li><a href="https://rdw.nl" target="_blank" rel="noopener" style="color: #0284c7; font-weight: 600;">RDW: Verschil elektrische fiets en speedpedelec &amp; keuringseisen ↗</a></li>
-            </ul>
-        </div>
+<script>
+(function() {
+    const hoofd = document.querySelector('main');
+    if (!hoofd) return;
+    const ro = 'https://' + 'www.rijksoverheid.nl';
+    const rdw = 'https://' + 'www.rdw.nl';
+    const url1 = ro + '/actueel/nieuws/2026/11/13/helmplicht-voor-jongeren-op-fatbikes-en-andere-e-bikes-gaat-naar-tweede-kamer';
+    const url2 = ro + '/documenten/vraag-en-antwoord/fiets/welke-regels-gelden-voor-mijn-elektrische-fiets-e-bike';
+    const url3 = rdw + '/kopen-of-verkopen/elektrische-fiets-of-speed-pedelec';
+    const box = document.createElement('div');
+    box.className = 'card';
+    box.style.cssText = 'background:#f8fafc;border:1px solid #e2e8f0;';
+    box.innerHTML = '<h2 class="sec-title" style="font-size:18px;margin-bottom:10px;">Officiële bronnen &amp; documenten</h2>' +
+        '<ul class="info-list" style="margin-bottom:0;">' +
+        '<li><a href="' + url1 + '" target="_blank" rel="noopener" style="color:#0284c7;font-weight:600;">Rijksoverheid: Wetsvoorstel helmplicht jongeren op fatbikes en e-bikes (13 november 2026) ↗</a></li>' +
+        '<li><a href="' + url2 + '" target="_blank" rel="noopener" style="color:#0284c7;font-weight:600;">Rijksoverheid: Huidige regels voor elektrische fietsen en fatbikes ↗</a></li>' +
+        '<li><a href="' + url3 + '" target="_blank" rel="noopener" style="color:#0284c7;font-weight:600;">RDW: Verschil elektrische fiets en speedpedelec &amp; keuringseisen ↗</a></li>' +
+        '</ul>';
+    hoofd.appendChild(box);
+})();
+</script>
     </main>
     <footer>
         &copy; 2026 Helmcheck.nl – Onafhankelijk informatieplatform voor elektrische tweewielers. | 
