@@ -268,7 +268,7 @@
                 '👉 *' + titel.innerText + '*\n\n' +
                 'Bekijk deze uitslag of doe zelf de check:\n' +
                 shareUrl;
-            const waBase = 'https://' + '://whatsapp.com' + '/send?text=';
+            const waBase = 'https://' + 'api.whatsapp.com' + '/send?text=';
             document.getElementById('waShareBtn').href = waBase + encodeURIComponent(shareText);
             
             box.style.display = 'block';
