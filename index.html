@@ -184,9 +184,7 @@
         
         <div class="card" style="background: #f8fafc; border: 1px solid #e2e8f0;">
             <h2 class="sec-title" style="font-size: 18px; margin-bottom: 10px;">Over Helmcheck.nl &amp; Onze bronnen</h2>
-            <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;">
-                <strong>Helmcheck.nl</strong> is een onafhankelijk Nederlands informatieplatform dat verkeersregels en wetsvoorstellen rondom elektrische tweewielers vertaalt naar een heldere keuzehulp. Wij baseren onze informatie op officiële publicaties van de <a href="https://www.rijksoverheid.nl/actueel/nieuws/2026/11/13/helmplicht-voor-jongeren-op-fatbikes-en-andere-e-bikes-gaat-naar-tweede-kamer" target="_blank" rel="noopener" style="color: #0284c7; font-weight: 600;">Rijksoverheid (wetsvoorstel 13 november 2026)</a>, de <a href="https://www.rijksoverheid.nl/documenten/vraag-en-antwoord/fiets/welke-regels-gelden-voor-mijn-elektrische-fiets-e-bike" target="_blank" rel="noopener" style="color: #0284c7; font-weight: 600;">huidige e-bike regels</a> en het <a href="https://rdw.nl" target="_blank" rel="noopener" style="color: #0284c7; font-weight: 600;">RDW</a>.
-            </p>
+            <p id="bronTekst" style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;"></p>
             <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 12px;">
                 <strong>100% gratis &amp; vrij van reclame:</strong> De keuzehulp en alle artikelen op Helmcheck.nl zijn voor iedereen gratis en zonder reclame of betaalmuren te gebruiken.
             </p>
@@ -326,5 +324,20 @@
         laadGedeeldeUitslag();
         laadNieuws();
     </script>
+    <script>
+(function() {
+    const p = document.getElementById('bronTekst');
+    if (!p) return;
+    const ro = 'https://' + 'www.rijksoverheid.nl';
+    const rdw = 'https://' + 'www.rdw.nl';
+    const u1 = ro + '/actueel/nieuws/2026/11/13/helmplicht-voor-jongeren-op-fatbikes-en-andere-e-bikes-gaat-naar-tweede-kamer';
+    const u2 = ro + '/documenten/vraag-en-antwoord/fiets/welke-regels-gelden-voor-mijn-elektrische-fiets-e-bike';
+    const u3 = rdw + '/kopen-of-verkopen/elektrische-fiets-of-speed-pedelec';
+    p.innerHTML = '<strong>Helmcheck.nl</strong> is een onafhankelijk Nederlands informatieplatform dat verkeersregels en wetsvoorstellen rondom elektrische tweewielers vertaalt naar een heldere keuzehulp. Wij baseren onze informatie op officiële publicaties van de ' +
+        '<a href="' + u1 + '" target="_blank" rel="noopener" style="color:#0284c7;font-weight:600;">Rijksoverheid (wetsvoorstel 13 november 2026)</a>, de ' +
+        '<a href="' + u2 + '" target="_blank" rel="noopener" style="color:#0284c7;font-weight:600;">huidige e-bike regels</a> en het ' +
+        '<a href="' + u3 + '" target="_blank" rel="noopener" style="color:#0284c7;font-weight:600;">RDW</a>.';
+})();
+</script>
 </body>
 </html>
