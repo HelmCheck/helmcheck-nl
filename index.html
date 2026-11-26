@@ -242,27 +242,50 @@
             } else if (l === 'onder18') {
                 box.className = 'result res-oranje';
                 titel.innerText = 'Nu nog niet verplicht, wel vanaf 1 september 2027';
+                const uitzonderingTekst = (t === 'bakfiets' && r === 'passagier')
+                    ? ' Let op: voor jonge baby’s in een goedgekeurde babyschaal en kinderen in een vrijgestelde BSO-bus geldt volgens het voorstel een uitzondering.'
+                    : '';
                 const rolTekst = (r === 'passagier')
-                    ? 'Ook als passagier (bijvoorbeeld achterop een e-bike of in een reguliere elektrische bakfiets) ben je straks verplicht een helm te dragen.'
+                    ? 'Ook als passagier (bijvoorbeeld achterop een e-bike of in een reguliere elektrische bakfiets) ben je straks verplicht een helm te dragen.' + uitzonderingTekst
                     : 'Dit geldt voor bestuurders van e-bikes, fatbikes, elektrische bakfietsen, e-steps en Segways.';
-                tekst.innerText = 'Op dit moment (2026) is een helm op dit voertuig tot 25 km/u nog niet verplicht. Het kabinet heeft echter een wetsvoorstel naar de Tweede Kamer gestuurd om per 1 september 2027 een helmplicht in te voeren voor iedereen onder de 18 jaar.. ' + rolTekst;
+                tekst.innerText = 'Op dit moment (2026) is een helm op dit voertuig tot 25 km/u nog niet verplicht. Het kabinet heeft echter een wetsvoorstel naar de Tweede Kamer gestuurd om per 1 september 2027 een helmplicht in te voeren voor iedereen onder de 18 jaar. ' + rolTekst;
             } else {
                 box.className = 'result res-groen';
                 titel.innerText = 'Geen wettelijke helmplicht (ook niet in 2027)';
-                tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. Het wetsvoorstel voor 1 september 2027 richt zich alleen op jongeren tot 18 jaar..';
+                tekst.innerText = 'Voor personen van 18 jaar en ouder op een standaard e-bike, fatbike, elektrische bakfiets of e-step tot 25 km/u (zonder zelfstandige gashendel) geldt geen helmplicht. Het wetsvoorstel voor 1 september 2027 richt zich alleen op jongeren tot 18 jaar.';
             }
 
             const voertuigNaam = document.getElementById('typeSelect').options[document.getElementById('typeSelect').selectedIndex].text;
-            const siteUrl = 'https://' + 'helmcheck.nl';
+            const params = new URLSearchParams({ t: t, r: r, l: l, g: g, s: s });
+            const shareUrl = 'https://' + 'helmcheck.nl/?' + params.toString();
             const shareText = '🚲 *Helmplicht-check (2026 / 2027)*\n\n' +
                 'Ik heb net de check gedaan voor een *' + voertuigNaam + '*:\n' +
                 '👉 *' + titel.innerText + '*\n\n' +
-                'Moet jij (of je kind) straks verplicht een helm op? Check jouw situatie in 10 seconden:\n' +
-                siteUrl;
+                'Bekijk deze uitslag of doe zelf de check:\n' +
+                shareUrl;
             const waBase = 'https://' + 'api.whatsapp.com' + '/send?text=';
             document.getElementById('waShareBtn').href = waBase + encodeURIComponent(shareText);
             
             box.style.display = 'block';
+        }
+
+        function laadGedeeldeUitslag() {
+            const p = new URLSearchParams(window.location.search);
+            if (p.has('t')) {
+                const typeEl = document.getElementById('typeSelect');
+                if ([...typeEl.options].some(o => o.value === p.get('t'))) {
+                    typeEl.value = p.get('t');
+                }
+                if (p.has('r')) document.getElementById('rolSelect').value = p.get('r');
+                if (p.has('l')) document.getElementById('leeftijdSelect').value = p.get('l');
+                if (p.has('g')) document.getElementById('gasSelect').value = p.get('g');
+                if (p.has('s')) document.getElementById('snelheidSelect').value = p.get('s');
+                openCheck();
+                if (typeEl.value === 'gewonefiets') {
+                    document.getElementById('overigeVragen').style.display = 'none';
+                }
+                checkHelm();
+            }
         }
 
         const SB_URL = 'https://abotommlvkzppelwmulh.supabase.co';
@@ -275,10 +298,7 @@
                     headers: { 'apikey': SB_ANON, 'Authorization': `Bearer ${SB_ANON}` }
                 });
                 const items = await res.json();
-                if (!items.length) {
-                    box.innerHTML = '<p style="font-size:14px;">Nog geen nieuwe berichten.</p>';
-                    return;
-                }
+                if (!items.length) return;
 
                 items.sort((a, b) => {
                     const aRijk = (a.bron || '').toLowerCase().includes('rijksoverheid');
@@ -291,13 +311,12 @@
                 box.innerHTML = items.slice(0, 5).map(n => {
                     const isRijk = (n.bron || '').toLowerCase().includes('rijksoverheid');
                     const metaTekst = isRijk ? n.bron : `${n.bron} • ${n.datum}`;
-                    return `<div class="news-item"><span class="news-date">${metaTekst}</span><h3 style="font-size:16px;margin:4px 0;"><a href="${n.url}" target="_blank" style="color:#0f172a;text-decoration:none;">${n.titel} ↗</a></h3></div>`;
+                    return `<div class="news-item"><span class="news-date">${metaTekst}</span><h3 style="font-size:16px;margin:4px 0;"><a href="${n.url}" target="_blank" rel="noopener" style="color:#0f172a;text-decoration:none;">${n.titel} ↗</a></h3></div>`;
                 }).join('');
-            } catch (e) {
-                box.innerHTML = '<p style="font-size:14px;">Kan nieuws momenteel niet laden.</p>';
-            }
+            } catch (e) {}
         }
 
+        laadGedeeldeUitslag();
         laadNieuws();
     </script>
 </body>
