@@ -298,7 +298,7 @@
 
         async function laadNieuws() {
             const box = document.getElementById('nieuwsLijst');
-            const veiligeTekst = (str) => String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+            const veiligeTekst = (str) => String(str || '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
             try {
                 const res = await fetch(`${SB_URL}/rest/v1/nieuws?select=*&order=datum.desc&limit=10`, {
                     headers: { 'apikey': SB_ANON, 'Authorization': `Bearer ${SB_ANON}` }
