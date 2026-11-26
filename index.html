@@ -315,7 +315,7 @@
                 });
 
                 box.innerHTML = items.slice(0, 5)
-                    .filter(n => String(n.url || '').startsWith('https:'))
+                    .filter(n => String(n.url || '').indexOf('https:') === 0)
                     .map(n => {
                         const isRijk = (n.bron || '').toLowerCase().includes('rijksoverheid');
                         const metaTekst = isRijk ? veiligeTekst(n.bron) : `${veiligeTekst(n.bron)} • ${veiligeTekst(n.datum)}`;
