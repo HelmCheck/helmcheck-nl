@@ -1,0 +1,31 @@
+# Helmcheck.nl
+
+> Onafhankelijk Nederlands informatieplatform en interactieve keuzehulp voor de helmplicht op elektrische fietsen, fatbikes, elektrische bakfietsen, e-steps en speedpedelecs (wetgeving 2026 en wetsvoorstel 2027).
+
+## Kernfeiten (Stand van zaken: november 2026)
+- **Huidige wetgeving (2026):** Op een standaard e-bike of fatbike met trapondersteuning tot 25 km/u is een fietshelm nog niet verplicht.
+- **Nu al verplicht (boete € 130,-):** Een helm is nu al wettelijk verplicht op een speedpedelec (tot 45 km/u, keurmerk NTA 8776) én op elke e-bike of fatbike met een zelfstandige gashendel (> 6 km/u) of opgevoerde motor (> 25 km/u).
+- **Wetsvoorstel 2027:** Op 13 november 2026 stuurde het kabinet het wetsvoorstel naar de Tweede Kamer om per **1 september 2027** (beoogde ingangsdatum) een fietshelm (keurmerk EN 1078) verplicht te stellen voor alle bestuurders én passagiers onder de 18 jaar op e-bikes, fatbikes, elektrische bakfietsen, e-steps en Segways.
+- **Volwassenen (18+):** Blijven ook in het voorstel voor 2027 vrijgesteld op standaard elektrische voertuigen tot 25 km/u.
+- **Uitzonderingen & zware cargobikes:** Er komt een uitzondering voor jonge baby's (< 15 maanden) in een goedgekeurde babyschaal en voor vrijgestelde BSO-bussen. Voor zware elektrische bakfietsen (cargobikes) gaat de minimumleeftijd van 16 naar 18 jaar.
+
+## Belangrijkste pagina's & tools
+- [Interactieve Helmplicht-check](https://helmcheck.nl/): Controleer in 5 korte vragen of een helm in 2026 of 2027 verplicht is.
+- [Wetgeving & Boetes](https://helmcheck.nl/wetgeving.html): Volledig overzicht van huidige wetgeving, boetebedragen en het wetsvoorstel voor 2027.
+- [Keurmerken & Helmen](https://helmcheck.nl/helmen.html): Uitleg over EN 1078 vs. NTA 8776, hoofdmaat opmeten en voorbeelden per categorie.
+- [Kennisbank Overzicht](https://helmcheck.nl/info/index.html): Alle 13 verdiepende artikelen verdeeld over Wetgeving, Praktische Tips en Veiligheid.
+
+## Verdiepende artikelen
+- [Helmplicht e-bike & fatbike 2027: Ouders & jongeren](https://helmcheck.nl/info/helmplicht-2027-ouders-jongeren.html)
+- [Helmplicht in de bakfiets & achterop de e-bike (2027)](https://helmcheck.nl/info/helmplicht-bakfiets-passagiers-2027.html)
+- [Helmplicht e-step & regels in Nederland](https://helmcheck.nl/info/helmplicht-estep-regels-nederland.html)
+- [Fatbike gashendel, opvoeren & boetes (€ 130,-)](https://helmcheck.nl/info/fatbike-gashendel-opvoeren-boetes.html)
+- [Zware elektrische bakfiets (cargobike) naar 18 jaar](https://helmcheck.nl/info/zware-bakfiets-cargobike-leeftijd-helmplicht.html)
+- [Tijdlijn helmplicht 2027: Tweede en Eerste Kamer](https://helmcheck.nl/info/tijdlijn-tweede-eerste-kamer-helmplicht-2027.html)
+- [Medische ontheffing helmplicht](https://helmcheck.nl/info/medische-ontheffing-helmplicht-fiets.html)
+- [Muts, hoofddoek of lang haar onder een fietshelm](https://helmcheck.nl/info/muts-hoofddoek-lang-haar-fietshelm.html)
+- [Tiener weigert een helm: 5 tips voor ouders](https://helmcheck.nl/info/tiener-weigert-helm-fatbike-tips.html)
+- [Informatiepakket voor scholen, ouderraden & sportclubs](https://helmcheck.nl/info/scholen-en-clubs-helmplicht.html)
+- [Wat is MIPS bij een fietshelm en is het nodig?](https://helmcheck.nl/info/wat-is-mips-fietshelm-nodig.html)
+- [Ongeluk zonder helm: Verzekering & aansprakelijkheid](https://helmcheck.nl/info/verzekering-aansprakelijkheid-zonder-helm.html)
+- [Hoe lang gaat een fietshelm mee? Houdbaarheid & vervangen](https://helmcheck.nl/info/houdbaarheid-fietshelm-vervangen-na-val.html)
