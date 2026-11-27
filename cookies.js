@@ -108,3 +108,19 @@ if (document.readyState === 'loading') {
 } else {
     CookieConsent.init();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const topBtn = document.createElement('button');
+    topBtn.innerHTML = '↑';
+    topBtn.setAttribute('aria-label', 'Terug naar boven');
+    topBtn.style.cssText = 'position:fixed;bottom:22px;right:20px;width:44px;height:44px;border-radius:50%;background:#0284c7;color:#ffffff;border:none;font-size:20px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(2,132,199,0.35);display:none;align-items:center;justify-content:center;z-index:999;transition:opacity 0.2s;';
+    document.body.appendChild(topBtn);
+
+    window.addEventListener('scroll', function() {
+        topBtn.style.display = (window.scrollY > 350) ? 'flex' : 'none';
+    });
+
+    topBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
